@@ -349,7 +349,7 @@ featured by Men's Health\cite{MH2022transformation}, 12-week Fitness Transformat
 and a 3-month trial promotion in Gold's Gym Harajuku.\cite{goldsgym2026trial}Although it is short, these transformations
 often emphasize intense routines, consistency in exercise, strict nutrional management,
 and recovery throughout the designated period. While such programs do not guarantee a particular
-result, their popularity suggests that a period of about three months is a familiar way of approaching fitness
+result, their popularity suggests that a period of about 3 months is a familiar way of approaching fitness
 goals for MakeMe's intended users.
 
 The length of the cycle must also be considered from a game-design perspective. A long cycle gives more
@@ -362,7 +362,7 @@ a defined period for gradual avatar development while keeping progression milest
 manageable timeframe.
 
 Ascension is the final consideration in the progression system. Upon completing a cycle, users are
-inteded to begin a new progression cycle by resetting their active avatar and completing the initial survey
+intended to begin a new progression cycle by resetting their active avatar and completing the initial survey
 again. This allows the avatar's starting configuration to reflect potential changes in the user's
 physical development since their previous cycle. For example, a user who selected a skinny build in the
 first cycle may select an average build in the next cycle. For users who begins with more developed
@@ -397,7 +397,7 @@ their training efforts through an avatar that develops alongside their fitness j
     
         \midrule
         Initial Avatar Set Up &
-        Simplified to Avatar Creation with one user goal. \\
+        Simplified and merged to Avatar Creation with one user goal. \\
         \addlinespace
 
         Workout Streak Tracking &
@@ -405,11 +405,11 @@ their training efforts through an avatar that develops alongside their fitness j
         \addlinespace
         
         Avatar Decay &
-        Dropped due to immense asset requirement. \\
+        Dropped due to extensive asset requirement. \\
         \addlinespace
 
         Avatar State System &
-        Dropped due to immense asset requirement. \\
+        Dropped due to extensive asset requirement. \\
         \addlinespace
 
         Habbit Loging &
@@ -418,11 +418,11 @@ their training efforts through an avatar that develops alongside their fitness j
         \addlinespace
 
         Bulk Progression &
-        Dropped due to immense asset requirement. \\
+        Dropped due to extensive asset requirement. \\
         \addlinespace
 
         Recovery and Revival &
-        Dropped due to immense asset requirement. \\
+        Dropped due to extensive asset requirement. \\
         \addlinespace
 
         Cycle Completion and Summary &
@@ -430,7 +430,8 @@ their training efforts through an avatar that develops alongside their fitness j
         \addlinespace
 
         Ascension System &
-        Added an avatar maxed conditional layer. \\
+        Added an avatar maxed conditional layer and progression
+        cycle modified to 91-days. \\
         \addlinespace
 
         Rewards &
@@ -438,7 +439,7 @@ their training efforts through an avatar that develops alongside their fitness j
         \addlinespace
         \bottomrule
     \end{tabularx}
-    \caption{Features not listed remained as originally proposed}
+    \caption*{Features not listed remained as originally proposed}
 \end{table}
 
 \section{Project Requirements}
@@ -649,16 +650,17 @@ The interface uses a dark blue header, a light blue background, and rounded butt
 The Habit Logger provides four categories: Workout Log, Meal Log, Hydration Log, and Sleep Log.
 These options are displayed as vertically arranged buttons to make navigation simple and accessible. The Workout Log button navigates to the Workout Log Screen. The remaining logging options currently lead to placeholder screens.
 
-\paragraph{Workout Log Screen.}
-
-The Workout Log Screen provides an interface for accessing workout-related functionality. The current screen contains a Workout Template button that navigates to a separate Workout Template screen.
-A back button allows users to return to the Habit Logger.
-At this stage, the Workout Log Screen primarily provides the navigation structure. Workout data entry and storage are not yet implemented in this screen.
-
-\paragraph{Navigation Implementation.}
+\paragraph{Navigation}
 
 Screen navigation is managed through the ScreenManager class and the Screens enumeration. Each screen accesses the ScreenManager through Provider and calls setScreen() when a navigation button is pressed.
 This approach separates navigation state from individual screen layouts and allows the application to switch between screens without duplicating navigation logic.
+
+\subsubsection{Core Application Logic}
+\paragraph{Workout Logging and Growth}
+
+\paragraph{Progression Cycle and Ascension}
+
+\paragraph{Persistence}
 
 \subsubsection{Avatar System}
 
@@ -677,6 +679,8 @@ Because each region is drawn as a separate layer, neighboring layers must line u
 The sprites are rendered by a Python script in Blender from a fixed orthographic camera, with the avatar in an A-pose so that the arms do not overlap the torso in the front view. Each layer is rendered with every other region masked out, in grayscale with a transparent background, at a resolution of $1200 \times 2400$ pixels. Each layer is exported at three pixel densities ($600 \times 1200$, $800 \times 1600$, and $1200 \times 2400$) so that Flutter can load the version that best matches the device's screen \cite{flutterassets}. Files follow the naming scheme \texttt{\{gender\}\_\{region\}\_g\{g\}\_s\{s\}.png}, which allows the asset path for any combination of levels to be built in code.
 
 In the application, the AvatarDisplay widget stacks the layers from back to front, and the AssetPaths helper builds each file path. Because the sprites are rendered in grayscale, the user's skin tone is applied at runtime by tinting each layer with Flutter's \texttt{BlendMode.modulate}, so a single set of sprites supports any skin tone. Growth values between two levels are displayed by fading between neighboring sprites, which AvatarDisplay already supports. To complete the integration, the Avatar model must also calculate the shared level $g$ and select each region's sprite by its pair of levels.
+
+\subsubsection{Web Build and Hosting}
 
 % ============================================================
 % 7. Rewuired Resources and Feasibility
@@ -711,11 +715,15 @@ The main risk is the number of sprites the system requires, which increases both
 \subsection{Proposed Features and Their Completion Status}
 TBD
 
-\subsection{Testing and Results}
-TBD
-
 \subsection{Challenges, Limitations, and Reasons for Incomplete Features}
-TBD
+
+\paragraph{Challenges}
+
+\paragraph{Limitations}
+
+\paragraph{Incomplete Features}
+
+\subsection{Testing and Results}
 
 
 
