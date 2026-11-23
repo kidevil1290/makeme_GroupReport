@@ -262,6 +262,7 @@ To establish this foundation, the project pursues the following objectives.
     avatar development, and work toward longer-term fitness goals. User's can ascend into a new cycle
     through either conditions: completing the full 91-day cycle or reaching maximum growth across all
     muscles in their avatar. This design rewards users who achieve maximum avatar progression a shorter cycle.
+    Upon ascension, a snapshot of the avatar will be recorded following with a badge as reward.
 
     \item Implement Persistent Data Storage: Develop a data storage system that preserves avatar configurations, 
     muscle-growth values, recorded workouts, progression cycle information, earned badges, and historical
@@ -344,8 +345,9 @@ Beyond the scientific considerations, similar periods are also reflected in the 
 and bodybuilding community. 12-week programs and 3 month transformation challenges are commonly
 presented as a way to set a goal and work toward visible changes. This can be observed
 in many fitness-related publications and promotional materials, including a 90-day Transformation Challenge
-featured by Men's Health\cite{MH2022transformation}, YMCA\cite{kvymca2019brochure}, and a 3-month trial promotion in Gold's Gym Harajuku.\cite{goldsgym2026trial}
-Although it is short, these transformations often emphasize consistency in exercise, strict nutrional management,
+featured by Men's Health\cite{MH2022transformation}, 12-week Fitness Transformation Program from Colfax Strong\cite{pinther2025fitness},
+and a 3-month trial promotion in Gold's Gym Harajuku.\cite{goldsgym2026trial}Although it is short, these transformations
+often emphasize intense routines, consistency in exercise, strict nutrional management,
 and recovery throughout the designated period. While such programs do not guarantee a particular
 result, their popularity suggests that a period of about three months is a familiar way of approaching fitness
 goals for MakeMe's intended users.
@@ -380,6 +382,65 @@ Through this approach, recorded exercise activities directly contribute to the d
 corresponding muscle groups within a personalized character. This shift allows MakeMe to
 concentrate on its central design concept providing users with a visual representation of
 their training efforts through an avatar that develops alongside their fitness journey.
+
+\begin{table}[H]
+    \centering
+    \caption{Conceptual table for high-level requirement comparison.}
+    \label{tab:risks}
+    \begin{tabularx}{\textwidth}{
+        >{\raggedright\arraybackslash}X
+        >{\raggedright\arraybackslash}X
+    }
+        \toprule
+        \textbf{Proposed Version} & 
+        \textbf{Current Version} \\
+    
+        \midrule
+        Initial Avatar Set Up &
+        Simplified to Avatar Creation with one user goal. \\
+        \addlinespace
+
+        Workout Streak Tracking &
+        Planned for future work without affecting muscle growth. \\
+        \addlinespace
+        
+        Avatar Decay &
+        Dropped due to immense asset requirement. \\
+        \addlinespace
+
+        Avatar State System &
+        Dropped due to immense asset requirement. \\
+        \addlinespace
+
+        Habbit Loging &
+        Meal logging is planned for future work 
+        with no current direction of its visual representation. \\
+        \addlinespace
+
+        Bulk Progression &
+        Dropped due to immense asset requirement. \\
+        \addlinespace
+
+        Recovery and Revival &
+        Dropped due to immense asset requirement. \\
+        \addlinespace
+
+        Cycle Completion and Summary &
+        Simplified to a weekly goal vs total week comparison. \\
+        \addlinespace
+
+        Ascension System &
+        Added an avatar maxed conditional layer. \\
+        \addlinespace
+
+        Rewards &
+        Simplified to badges only. \\
+        \addlinespace
+        \bottomrule
+    \end{tabularx}
+    \caption{Features not listed remained as originally proposed}
+\end{table}
+
 \section{Project Requirements}
 \subsection{Product Vision and Scope}
 MakeMe is a gamified fitness-tracking application that aims to connect users’ real-world fitness
