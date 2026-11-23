@@ -259,7 +259,14 @@ To establish this foundation, the project pursues the following objectives.
 
     \item Establish a Structured Progression System: Develop a 91-day progression
     cycle that provides users with a defined period to track their activities, observe
-    avatar development, and work toward longer-term fitness goals.
+    avatar development, and work toward longer-term fitness goals. User's can ascend into a new cycle
+    through either conditions: completing the full 91-day cycle or reaching maximum growth across all
+    muscles in their avatar. This design rewards users who achieve maximum avatar progression a shorter cycle.
+
+    \item Implement Persistent Data Storage: Develop a data storage system that preserves avatar configurations, 
+    muscle-growth values, recorded workouts, progression cycle information, earned badges, and historical
+    records of avatars. This will allow users to retain their progress across application sessions and review their
+    development over multiple cycles.
 
 \end{enumerate}
 
@@ -315,9 +322,17 @@ Physical development through resistance training is a gradual process influenced
 consistency, training intensity, nutritional intake, and recovery. Research by Currier et al.(2023) provides a scientific
 foundation for this relationship through a systematic review and Bayesion network meta-analysis examining the effects
 of different resistance training prescriptions on muscle strength and hypertrophy.\cite{currier2023resistance} Their results suggest that a range
-of training apporaches can improve both outcomes. This supports the idea that visible development comes from the accumulation
-of many sessions over an extended period rather than from a single workout. In addition, physical development is not determined
-by exercise alone. Among many factors, nutriional practices, particularly the management of
+of training apporaches can improve both outcomes. This supports the idea that physical development comes from the accumulation
+of many sessions over an extended period rather than from a single workout. Furthermore, these adaptations can be
+supported in Ahtiainen et al. (2003), which examined the effects of a 21-week strength-training intervention on previously
+untrained individuals and experienced stregth athletes.\cite{ahtiainen2003muscle} The result showed both groups experienced improvements in muscular
+strength, although the untrained participants demonstrated greater improvements alongside significant increase in muscle
+cross-sectional area. These findings illustrate how an individual's training background can influence how their body
+responds to resistance training. Together, these studies demonstrate that resistance training can improve muscular
+strength and hypertophy over time, while acknowledging that results may vary depending on an individual's training
+background.
+
+In addition, physical development is not determined by exercise alone. Among many factors, nutriional practices, particularly the management of
 caloric intake, also play a role in how individuals approach muscle development and cahnges in body composition. Giannopoulos et al.
 examined nutrition in a 24-week pilot intervention inspired by bodybuilding practices, in which a 12-week caloric-surplus
 phase was followed by a 12-week caloric-restriction phase alongside resistance training.\cite{giannopoulos2025bulkcut} The study was limited in
@@ -327,10 +342,13 @@ structured periods of several months are a familiar way to organize physical dev
 
 Beyond the scientific considerations, similar periods are also reflected in the broader fitness
 and bodybuilding community. 12-week programs and 3 month transformation challenges are commonly
-presented as a way to set a goal and work toward visible changes. These approaches often emphasize
-consistency in exercise, strict nutrional management, and recovery throughout the designated period.
-While such programs do not guarantee a particular result, their popularity suggests that a period
-of about three months is a familiar way of approaching fitness goals for MakeMe's intended users.
+presented as a way to set a goal and work toward visible changes. This can be observed
+in many fitness-related publications and promotional materials, including a 90-day Transformation Challenge
+featured by Men's Health\cite{MH2022transformation}, YMCA\cite{kvymca2019brochure}, and a 3-month trial promotion in Gold's Gym Harajuku.\cite{goldsgym2026trial}
+Although it is short, these transformations often emphasize consistency in exercise, strict nutrional management,
+and recovery throughout the designated period. While such programs do not guarantee a particular
+result, their popularity suggests that a period of about three months is a familiar way of approaching fitness
+goals for MakeMe's intended users.
 
 The length of the cycle must also be considered from a game-design perspective. A long cycle gives more
 time for physical development, but it also lengthens the time before a user reaches a major milestone.
