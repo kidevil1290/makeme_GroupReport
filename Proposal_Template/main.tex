@@ -482,6 +482,7 @@ future expansion.
     \item \textbf{R6.} Ascension System. The system will allow users to ascend into a new progression cycle
         upon completion of the current cycle.
     \item \textbf{R7.} Reward System. The system will reward users with a badge after ascension.
+    \item \textbf{R8.} Persistence. Data must persist along multiple sessions
 \end{itemize}
 \subsection{Target Users and Personas}
 MakeMe primarily targets individuals who want to develop healthier habits through an interactive and gamified fitness application. The following personas represent two potential user groups.
@@ -656,11 +657,40 @@ Screen navigation is managed through the ScreenManager class and the Screens enu
 This approach separates navigation state from individual screen layouts and allows the application to switch between screens without duplicating navigation logic.
 
 \subsubsection{Core Application Logic}
+
 \paragraph{Workout Logging and Growth}
+A WorkoutLogEntry requires the fields: duration, intensity and a list of BodyPartName provided by user input in the Workout
+Log screen. Once the workout is saved, the screen calls UserProfile to execute a series of operations. First, it constructs
+a WorkoutLogEntry using the provided fields and adds it into the workout history. Second, the entry calculates itself using 
+Growth Calculator’s formula and converts the result into a map with their corresponding growth values. UserProfile reads this map, 
+applies the additional growth and replaces the avatar’s map of BodyParts. The avatar is then passed to CycleManager and checks whether it has reached 
+its maximum growth. Finally, changed() is called to save the updated data to disk asynchronously and triggers a UI redraw.
+
+The growth formula is duration / 30 * intensity multiplier (light 0.5, moderate 1.0, and heavy 1.5). The resulting growth value
+is then distributed evenly across the selected muscle groups by dividing the total growth by the number of selected muscles. 
+The user’s selected weekly goal determines the target growth required for every muscle to reach its maximum. Consequently, 
+users who train harder, for longer durations, or more frequently will progress faster and ascend earlier.
+
 
 \paragraph{Progression Cycle and Ascension}
+Throughout the cycle, whenever the avatar changes, UserProfile passes the updated avatar to CycleManager to determine whether
+the avatar is eligible to ascend. Ascension becomes available when all muscles have reached their maximum growth, or the user
+has completed the full 91-day cycle. After meeting one of these conditions, the application prompts the user to select
+“Ascend” to proceed. Upon ascension, the avatar is converted into an AvatarRecord that contains a week met / total week
+summary highlighting the number of weeks they were consistent with their weekly goal compared to the total cycle. Each
+AvatarRecord is displayed as a card in avatar selection screen, using the saved avatar configuration to display as preview
+of the previous avatars. Ascension also awards a 16-tiered badge that evolves with each ascension and is carried over to
+the new avatar. The badge is displayed in avatar selection screen, where it serves as an entry point to the home screen and
+alongside the avatar on the home screen.
 
 \paragraph{Persistence}
+All user data such as avatar, head configurations, avatar records, workout history, templates, ascension level,
+and cycle start date is consolidated into a UserData snapshot, with each component supporting toJson and fromJson
+conversion to represent the UserProfile’s current state. StorageService saves and loads this snapshot into one JSON
+string using SharedPreferencesAsync, which stores data using key-value storage locally on disk. On web-builds,
+browser storage is kept separately for each origin (address and port). Data is saved asynchronously after every change
+and loaded once at startup. If the saved avatar cannot be read or the JSON data is corrupted, the application resets
+to an empty profile and the damaged save will be overwritten at the next save.
 
 \subsubsection{Avatar System}
 
@@ -680,7 +710,14 @@ The sprites are rendered by a Python script in Blender from a fixed orthographic
 
 In the application, the AvatarDisplay widget stacks the layers from back to front, and the AssetPaths helper builds each file path. Because the sprites are rendered in grayscale, the user's skin tone is applied at runtime by tinting each layer with Flutter's \texttt{BlendMode.modulate}, so a single set of sprites supports any skin tone. Growth values between two levels are displayed by fading between neighboring sprites, which AvatarDisplay already supports. To complete the integration, the Avatar model must also calculate the shared level $g$ and select each region's sprite by its pair of levels.
 
-\subsubsection{Web Build and Hosting}
+\subsubsection{Proof of Concept}
+The team has added debugging tools in the profile menu intended for verification and demonstration, and not
+as user features. The growth simulator helps visualize the avatar progression throughout the 91-day cycle for
+each build. Its drop-down selection and goal slider also visualizes the growth calculation that determines
+the three cases for users who are: underperforming, over performing, or hitting their goals for ascension.
+“Force End Cycle” and “Force Maxed Avatar” verify that a completed full 91-day cycle and reaching the maximum
+growth for all muscles triggers an ascension and ends the cycle.
+
 
 % ============================================================
 % 7. Rewuired Resources and Feasibility
