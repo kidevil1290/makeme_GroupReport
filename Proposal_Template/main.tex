@@ -827,13 +827,54 @@ TBD
 
 \subsection{Challenges, Limitations, and Reasons for Incomplete Features}
 
-\paragraph{Challenges}
+\subsubsection{Challenges}
 
-\paragraph{Limitations}
+\paragraph{Making growth fair for every build and goal.}
+Requirement R3 says the system must calculate growth, but it does not say how fast an avatar should grow. If growth is too fast, users max out their avatar in a few weeks. If it is too slow, a user who follows their own goal never sees the avatar complete. We therefore tied the growth needed to reach the highest level to the user's weekly goal, and checked the result by replaying the whole 91-day cycle with simulated users (\texttt{GrowthSimulator}) for every build and goal. This showed that users who meet their goal max their avatar inside the cycle, users who train more max earlier, and users who train less never max and ascend at day 91.
 
-\paragraph{Incomplete Features}
+\paragraph{Keeping the avatar log consistent.}
+We store the raw growth of each muscle, which only ever increases, and translate it into a displayed level when the avatar is drawn (\texttt{AvatarSprites}). This means the appearance can be retuned without rewriting the user's saved data, and the stored data stays consistent for the whole cycle.
+
+
+\paragraph{Screen navigation and shared state.}
+With ten screens, we needed navigation that does not duplicate logic in each screen. \texttt{ScreenManager} handles this and also intercepts the system back gesture, so that a stray swipe on the home or login screen does not close the app. State shared between screens, such as a template chosen for the next workout, raised its own problem. The chosen template is kept in memory in \texttt{UserProfile} and handed over once by \texttt{takePendingTemplate()}. This method deliberately does not notify listeners, because it is called while the workout log screen is being built, and notifying at that point causes a Flutter error.
+
+\paragraph{Reliable saving and loading.}
+All user data is saved as one JSON string, so damaged data must not prevent the application from starting. Loading is therefore defensive: unreadable data gives an empty profile, a single unreadable history record or workout is skipped while the others are kept, and out-of-range values are clamped. Saving runs in the background after every change, using a snapshot that is built immediately, so that a later change cannot affect a save in progress.
+
+\paragraph{Collaboration and version control.}
+Working with branches and pull requests on GitHub was new to some team members. For example, we learned that files can be added to or removed from a commit while the pull request is still open. We solved this by keeping the models, services, screens and widgets in separate files, so that team members could work on different parts with fewer conflicts.
+
+
+\subsubsection{Limitations}
+\paragraph{No user accounts or cloud storage.}
+The login screen has no authentication. ``Start'' leads directly to the avatar selection screen, and ``Sign up'' leads to a placeholder screen. All data is stored locally on the device with \texttt{SharedPreferencesAsync}. It is therefore not synchronised between devices, and it is lost if the application data is cleared. On web builds, the data is also stored separately for each address and port.
+
+\paragraph{Simplified workout data.}
+A workout records only the duration, the muscle groups and the intensity. Exercises, sets, repetitions and weights are not recorded, and the total growth is divided equally between the selected muscles. Avatar growth is therefore an estimate of training time and effort, not a measure of the real training load. 
+
+\paragraph{Fixed growth model.}
+The growth formula and the target growth per weekly goal are fixed in the code. They were calibrated with simulated users, not with data from real users over several months, so the pace of progression has not yet been validated with real users.
+
+\paragraph{Limited customisation and rewards.}
+Customisation is limited to a predefined set of head options, colours and four starting builds, because every combination needs its own sprites. There are 16 badges in total, which is also the highest ascension level. At the last level, the avatar can still ascend, but the level does not increase.
+
+
+\subsubsection{Incomplete Features}
+
+The features below were part of the original proposal but are not in the MVP (Table~1). Most were dropped because of the limited time and because they needed large amounts of additional visual assets, as explained in Section~4.1.
+
+\begin{itemize}
+  \item \textbf{Avatar decay, avatar state system, bulk progression, and recovery and revival.} Each of these would need many extra sprites for the new appearances (for example a decayed, recovering or bulked avatar). Making these assets was not possible within the project's seven-week timeline. A 3D model would make them easier to add.
+  \item \textbf{Habit logging (meals, hydration, sleep).} The habit logger screen still shows buttons for these logs, but they lead to a placeholder screen. They were left out because there was no clear design for how nutrition, hydration and sleep should change the avatar, and the MVP focuses on workouts. 
+  \item \textbf{Cycle completion summary.} The detailed summary was reduced to the number of weeks in which the user met their weekly goal compared to the total number of weeks.
+  \item \textbf{Rewards.} Only badges were implemented. Other rewards, such as titles and cosmetic items, are not included.
+  \item \textbf{Accounts and synchronisation.} These were not part of the high-level requirements, so the application works for one user on one device.
+\end{itemize}
+
 
 \subsection{Testing and Results}
+
 
 
 
