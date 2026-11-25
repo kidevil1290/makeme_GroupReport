@@ -584,14 +584,15 @@ defining the fixed options used across application.
 
 \begin{figure}[H]
     \centering
-    \IfFileExists{figures/class-diagram.pdf}{
-        \includegraphics[width=0.92\linewidth]{figures/class-diagram.pdf}
+    \IfFileExists{figures/class_diagram.pdf}{
+        \includegraphics[width=0.92\linewidth]{figures/class_diagram.pdf}
     }{
-        \figureplaceholder{55mm}{Add \texttt{figures/class-diagram.pdf}}
+        \figureplaceholder{55mm}{Add \texttt{figures/class\_diagram.pdf}}
     }
     \caption{UML class diagram for MakeMe.}
     \label{fig:classdiagram}
 \end{figure}
+
 The UserProfile class is at the center of this design. It owns the user's avatar and is related to one or
 more avatars, so earlier avatars can be kept as a history once a cycle ends. The avatar class is immutable
 , so methods such as copyWith() and addGrowth() return a new Avatar instead of changing the existing
@@ -607,16 +608,18 @@ to select each region's sprite, as described in the Avatar System section.
 \subsection{Sequence Diagram}
 The sequence diagram in \cref{fig:sequencediagram} showcases the central interactions
  that occurs when a user records a workout.
+
 \begin{figure}[H]
     \centering
-    \IfFileExists{figures/sequence-diagram.pdf}{
-        \includegraphics[width=0.92\linewidth]{figures/sequence-diagram.pdf}
+    \IfFileExists{figures/sequence_diagram.pdf}{
+        \includegraphics[width=\linewidth]{figures/sequence_diagram.pdf}
     }{
-        \figureplaceholder{55mm}{Add \texttt{figures/sequence-diagram.pdf}}
+        \figureplaceholder{55mm}{Add \texttt{figures/sequence\_diagram.pdf}}
     }
     \caption{Sequence diagram for logging a workout in MakeMe.}
     \label{fig:sequencediagram}
 \end{figure}
+
 The sequence begins when the user logs a workout on the workout logger screen. After confirming the workout,
 WorkoutLog calculates the growth amount from the duration and intensity of the session. For each body part,
 this amount is passed to the UserProfile, which then calls Avatar to apply the growth. Because Avatar is
@@ -822,7 +825,6 @@ R8 & Persistence & Completed & All user data is saved and loaded. \\ \hline
 All eight high-level requirements were implemented. Four of them (R2, R3, R4 and R8) were completed as proposed, and four (R1, R5, R6 and R7) were completed with changes to keep the scope within the project time. The changes are explained in Section~3.2 and Section~4.1.
 
 The features of the original proposal that are not part of R1--R8, which are workout streak tracking, avatar decay, the avatar state system, habit logging, bulk progression, and recovery and revival, were not implemented. They are listed with their reasons in Section~8.3. Some features were added that were not in the original proposal: workout templates, the weekly goal, the avatar history on the avatar selection screen, the workout history calendar, and the growth simulator.
-
 
 \subsection{Testing and Results}
 
