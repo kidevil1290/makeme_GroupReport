@@ -377,17 +377,6 @@ physical representations. The previous avatar is intended to be preserved as rec
 
 \subsection{Comparison With the Proposed Project}
 \label{sec:comparison}
-Initially, MakeMe was envisioned as an application that would combine elements from the three
-approaches discussed above, bringing together conventional fitness tracking, gamification,
-and interactive gameplay. However, as the project developed, its scope was refined to focus
-on a more specific aspect of the fitness-tracking experience: connecting users' workout
-activities with the development of their avatars. Rather than attempting to incorporate
-the various challenges, social features, and gameplay mechanics found in existing solutions,
-the current MVP places its emphasis on workout logging and muscle-specific avatar progression.
-Through this approach, recorded exercise activities directly contribute to the development of
-corresponding muscle groups within a personalized character. This shift allows MakeMe to
-concentrate on its central design concept providing users with a visual representation of
-their training efforts through an avatar that develops alongside their fitness journey.
 
 \begin{table}[H]
     \centering
@@ -722,44 +711,12 @@ badges are pixel-art emblems by beemaxstudio, released under a CC0 license \cite
 
 
 \subsubsection{Front-End Screens and Navigation}
-
-The front-end of MakeMe consists of the application's screens and the navigation between them. The following screens have been implemented. Their connections are managed by the \texttt{ScreenManager} (see Navigation Implementation below).
-
-\paragraph{Login Screen.}
-The Login Screen serves as the initial entry point of the application. It includes a Start button near the bottom of the screen and a Sign Up button near the top. Pressing the Start button navigates the user to the Avatar Selection Screen. The Sign Up button currently leads to a placeholder screen.
-
-\paragraph{Avatar Selection Screen.}
-The Avatar Selection Screen decides how the user continues. If there is no current avatar, its main button leads to the Avatar Creation Screen. If there is one, the button leads to the Home Screen. The ascension badge of the user is shown here as well. Below the button, the avatars from earlier cycles are listed as cards, each drawn from its saved appearance. A card can be opened to see the avatar larger, together with the number of weeks in which the weekly goal was met and the dates of the cycle (R6, R7). Empty slots show that more avatars can be earned.
-
-\paragraph{Avatar Creation Screen.}
-The Avatar Creation Screen implements requirement R1. The user enters a name, sets a weekly workout goal, and chooses the gender, the starting build, the head options (hair, eyes, nose and mouth), and the skin and hair colour. A live preview of the avatar is shown while the user chooses. When the user confirms, the avatar is created, the 91-day cycle starts, and the user is taken to the Home Screen.
-
-\paragraph{Home Screen.}
-The Home Screen provides the main navigation interface and shows the current avatar and its badge (R4, R7). It contains three navigation options at the bottom: Home, Loggers, and Stats. The Loggers option opens the Habit Logger, and the Stats option opens the Status Screen. A Start Workout button is positioned near the bottom of the screen and opens the Workout Log directly. A menu in the header gives access to the Avatar Selection Screen, Log Out, and the debug tools (see below). When the avatar can ascend, either because all muscles are maxed or because the 91 days have passed, a dialog asks the user to press Ascend before anything else can be done (R6). The interface uses a dark blue header, a light blue background, and rounded buttons to maintain a consistent design.
-
-\paragraph{Habit Logger.}
-The Habit Logger provides four categories: Workout Log, Meal Log, Hydration Log, and Sleep Log. These options are displayed as vertically arranged buttons to make navigation simple and accessible. The Workout Log button navigates to the Workout Log Screen. The remaining logging options currently lead to placeholder screens, because these features are outside the scope of the MVP (Section~\ref{sec:challenges}).
-
-\paragraph{Status Screen.}
-The Status Screen is opened from the Stats option of the Home Screen. It shows the workout history of the user as a monthly calendar, where days with logged workouts are marked and the visible month can be changed. When the user selects a day, the screen lists the workouts of that day. Each workout is shown as a card with its duration, intensity, trained muscle groups, and the name of the template that was used, if any. A day without workouts shows an empty message. The screen only reads the saved workout history, so every workout saved in the Workout Log appears here automatically, and the history is still there after the application restarts. A back button returns to the Home Screen.
-
-\paragraph{Growth Simulation Screen.}
-The Growth Simulation Screen is a developer tool in the header menu of the Home Screen. It replays the 91-day cycle for the four builds with a simulated user (under, on or over the goal) and shows the avatars and whether they can ascend on each day. The same menu has two buttons, Force End Cycle and Force Maxed Avatar, which make it possible to check the two conditions of the ascension without waiting 91 days.
+\paragraph{Screens}
+The front-end consists of ten screens, which share one design and are connected through the \texttt{ScreenManager}. Each screen reads the shared \texttt{UserProfile} and \texttt{ScreenManager} through \texttt{Provider} and moves to another screen by calling \texttt{setScreen()}. The Login Screen Start button opens the Avatar Selection Screen. The Avatar Selection Screen sends the user to the Avatar Creation Screen when there is no avatar, or to the Home Screen when there is one, and it lists the avatars of earlier cycles as cards. The Avatar Creation Screen (R1) lets the user enter a name, a weekly goal, the gender, the starting build, the head options and the skin and hair colour, with a live preview drawn by \texttt{AvatarDisplay}. The Home Screen shows the current avatar and badge, has the Home, Loggers and Stats tabs and a Start Workout button, offers a menu with the avatar selection and the debug tools, and asks the user to ascend when the avatar is maxed or the 91 days have passed. The Loggers tab opens the Habit Logger, whose Workout Log button leads to the Workout Log Screen, while the Meal, Hydration and Sleep buttons open a placeholder screen because those features are outside the scope of the MVP. The Workout Log Screen (R2) collects the duration, the muscle groups and the intensity, enables its Save button only for complete input, and passes the entry to \texttt{UserProfile}, which grows the avatar and saves the data before the user returns to the Home Screen. The Template Screen lets the user save and choose templates of muscle groups and intensity, and a chosen template fills in the Workout Log form. The Stats tab opens the Status Screen, which shows the saved workouts in a monthly calendar. Finally, the Growth Simulation Screen is in the Home Screen menu that replays the 91-day cycle for each build, so the growth pace and the ascension can be checked without waiting 91 days.
+this is the implementation for all screens
 
 \paragraph{Navigation Implementation.}
 Screen navigation is managed through the \texttt{ScreenManager} class and the \texttt{Screens} enumeration. Each screen accesses the \texttt{ScreenManager} through \texttt{Provider} and calls \texttt{setScreen()} when a navigation button is pressed. The class \texttt{app.dart} watches the manager and shows the matching screen with a short fade. The system back gesture is passed to \texttt{goBack()}, which returns to the previous screen and does nothing on the Home and Login screens, so a stray swipe does not close the application. This approach separates navigation state from individual screen layouts and allows the application to switch between screens without duplicating navigation logic. A new screen only needs a new value in the \texttt{Screens} enumeration.
-
-\subsubsection*{Workout Log}
-The Workout Log screen implements requirement R2. It lets the user enter the three inputs the avatar growth calculation depends on:
-\begin{itemize}
-  \item \textbf{Duration:} the length of the workout, from 5 minutes to 2 hours.
-  \item \textbf{Muscle group:} one or more muscle groups trained, selected from a fixed list.
-  \item \textbf{Intensity level:} how demanding the workout was (light, moderate or heavy).
-\end{itemize}
-Using selection controls for the duration, the muscle groups and the intensity keeps the input consistent and avoids invalid values, and the Save button is only enabled when the input is complete. When the user confirms an entry, the screen passes the logged data to the growth logic (R3), which applies growth to the corresponding muscles. The workout and the new growth are saved together, and the user returns to the Home Screen with a confirmation, where the updated avatar is displayed (R4).
-
-\subsubsection*{Workout Log Template}
-Entering the same workout repeatedly is tedious, which works against the goal of building a consistent habit, a need shared by all three personas. To reduce this effort, MakeMe provides workout log templates. On the Template Screen, the user can save a combination of muscle groups and intensity under a name, choose a saved template from a list, or delete it. A template does not store the duration, which the user still chooses for each workout. Selecting a template opens the Workout Log with the muscle groups and the intensity already filled in, so a routine workout can be logged in a few taps. The user can still adjust any value before confirming, so a template acts as a starting point rather than a fixed entry. The name of the template is stored with the workout and is shown on the Status Screen.
 
 \subsubsection{Growth, Cycle, Ascension and Persistence}
 \label{sec:growthcycle}
@@ -1064,9 +1021,6 @@ Beyond the requirements, the team achieved the following:
     \item \textbf{Habit Loggers:} Implement habit-tracking features, such as nutrition, hydration, and sleep
         tracking, to restore the broader vision of MakeMe. The application’s primary goal is to extend
         conventional fitness application functionality through a visual layer of personalized avatar development. Incorporating these features would allow the avatar to reflect a wider range of user’s fitness habits rather than relying exclusively on workout activities, bringing the application closer to its original design concept.
-    \item \textbf{User Testing and Interface Tests:} Test the application with real users over a full 91-day cycle
-        to check whether the pace of growth is motivating, and add widget and integration tests so that the screens
-        and the navigation are checked automatically, like the models and services.
 \end{itemize}
 
 
@@ -1079,4 +1033,4 @@ Beyond the requirements, the team achieved the following:
 \clearpage
 
 \end{document}
- 
+ 
