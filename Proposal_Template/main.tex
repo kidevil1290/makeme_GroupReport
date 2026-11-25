@@ -318,7 +318,7 @@ In these games, physical activity is not simply a means of tracking progress but
 However, research on PokemonGO suggests that increases in physical activity may be short-lived, highlighting the challenge
 of sustaining user engagement and long-term exercise habits.
 
-\subsection{91-day Progression Cycle Rationale}
+\subsubsection{91-day Progression Cycle Rationale}
 Physical development through resistance training is a gradual process influenced by several factors, including workout
 consistency, training intensity, nutritional intake, and recovery. Research by Currier et al.(2023) provides a scientific
 foundation for this relationship through a systematic review and Bayesion network meta-analysis examining the effects
@@ -469,6 +469,29 @@ progression mechanics before considering integrating additional features. This n
 allowed the project to concentrate on its primary mechanic while establishing a foundation for
 future expansion.
 
+\subsubsection{Scope}
+
+\textbf{In scope.}
+The initial version of MakeMe will focus on implementing the avatar’s initial configuration, muscle growth, workout logging,
+     streak system, and time-based decay. It will also include habit logging with template, supporting avatars conditional states and bulk progression.
+        A 90-day progression cycle, cycle-completion and summary that provides the user a long term objective.
+
+        
+    one challenhge that i faced is the workout log funtion. it shold be saved workouut log, but chould not combine the logic with appearance.
+    The same problem for the template implementation. the 
+    One point that i have leaned is how to use Github also for commands.
+    i didn't know that i coulf change the committed files add or remove them during PR is progress.
+    
+\medskip
+
+\textbf{Out of scope.}
+The initial implementation will exclude extensive equipment collections, multiplayer features, competitive leaderboards,
+     and advanced social systems. Character customization, avatar appearance states, and visual progression will also be
+        limited to a predefined set of options. Additionally, the application will not provide medical diagnoses or claim
+     that avatar development accurately represents a user's real body composition or physical health.
+
+
+
 \subsection{High-Level Requirements}
 \begin{itemize}
     \item \textbf{R1.} Initial Avatar Set Up. The system will allow users to personalize their avatars head
@@ -561,14 +584,15 @@ defining the fixed options used across application.
 
 \begin{figure}[H]
     \centering
-    \IfFileExists{figures/class-diagram.pdf}{
-        \includegraphics[width=0.92\linewidth]{figures/class-diagram.pdf}
+    \IfFileExists{figures/class_diagram.pdf}{
+        \includegraphics[width=0.92\linewidth]{figures/class_diagram.pdf}
     }{
-        \figureplaceholder{55mm}{Add \texttt{figures/class-diagram.pdf}}
+        \figureplaceholder{55mm}{Add \texttt{figures/class\_diagram.pdf}}
     }
     \caption{UML class diagram for MakeMe.}
     \label{fig:classdiagram}
 \end{figure}
+
 The UserProfile class is at the center of this design. It owns the user's avatar and is related to one or
 more avatars, so earlier avatars can be kept as a history once a cycle ends. The avatar class is immutable
 , so methods such as copyWith() and addGrowth() return a new Avatar instead of changing the existing
@@ -584,16 +608,18 @@ to select each region's sprite, as described in the Avatar System section.
 \subsection{Sequence Diagram}
 The sequence diagram in \cref{fig:sequencediagram} showcases the central interactions
  that occurs when a user records a workout.
+
 \begin{figure}[H]
     \centering
-    \IfFileExists{figures/sequence-diagram.pdf}{
-        \includegraphics[width=0.92\linewidth]{figures/sequence-diagram.pdf}
+    \IfFileExists{figures/sequence_diagram.pdf}{
+        \includegraphics[width=\linewidth]{figures/sequence_diagram.pdf}
     }{
-        \figureplaceholder{55mm}{Add \texttt{figures/sequence-diagram.pdf}}
+        \figureplaceholder{55mm}{Add \texttt{figures/sequence\_diagram.pdf}}
     }
     \caption{Sequence diagram for logging a workout in MakeMe.}
     \label{fig:sequencediagram}
 \end{figure}
+
 The sequence begins when the user logs a workout on the workout logger screen. After confirming the workout,
 WorkoutLog calculates the growth amount from the duration and intensity of the session. For each body part,
 this amount is passed to the UserProfile, which then calls Avatar to apply the growth. Because Avatar is
@@ -642,29 +668,58 @@ The avatar's visual assets were created in Blender \cite{blender} with MPFB2 \ci
 
 \subsection{Implementation of the Main Features}
 
+
 \subsubsection{Front-End Screens and Navigation}
 
-\textbf{Navigation Implementation}
+The front-end of MakeMe consists of the application's screens and the navigation between them. The following screens have been implemented. Their connections are managed by the \texttt{ScreenManager} (see Navigation Implementation below).
 
-Screen navigation is managed through the ScreenManager class and the Screens enumeration. Each screen accesses the ScreenManager through Provider and calls setScreen() when a navigation button is pressed.
-This approach separates navigation state from individual screen layouts and allows the application to switch between screens without duplicating navigation logic.
+\paragraph{Login Screen.}
+The Login Screen serves as the initial entry point of the application. It includes a Start button near the bottom of the screen and a Sign Up button near the top. Pressing the Start button navigates the user to the Avatar Selection Screen. The Sign Up button currently leads to a placeholder screen.
+
+\paragraph{Avatar Selection Screen.}
+The Avatar Selection Screen decides how the user continues. If there is no current avatar, its main button leads to the Avatar Creation Screen. If there is one, the button leads to the Home Screen. The ascension badge of the user is shown here as well. Below the button, the avatars from earlier cycles are listed as cards, each drawn from its saved appearance. A card can be opened to see the avatar larger, together with the number of weeks in which the weekly goal was met and the dates of the cycle (R6, R7). Empty slots show that more avatars can be earned.
+
+\paragraph{Avatar Creation Screen.}
+The Avatar Creation Screen implements requirement R1. The user enters a name, sets a weekly workout goal, and chooses the gender, the starting build, the head options (hair, eyes, nose and mouth), and the skin and hair colour. A live preview of the avatar is shown while the user chooses. When the user confirms, the avatar is created, the 91-day cycle starts, and the user is taken to the Home Screen.
+
+\paragraph{Home Screen.}
+The Home Screen provides the main navigation interface and shows the current avatar and its badge (R4, R7). It contains three navigation options at the bottom: Home, Loggers, and Stats. The Loggers option opens the Habit Logger, and the Stats option opens the Status Screen. A Start Workout button is positioned near the bottom of the screen and opens the Workout Log directly. A menu in the header gives access to the Avatar Selection Screen, Log Out, and the debug tools (see below). When the avatar can ascend, either because all muscles are maxed or because the 91 days have passed, a dialog asks the user to press Ascend before anything else can be done (R6). The interface uses a dark blue header, a light blue background, and rounded buttons to maintain a consistent design.
+
+\paragraph{Habit Logger.}
+The Habit Logger provides four categories: Workout Log, Meal Log, Hydration Log, and Sleep Log. These options are displayed as vertically arranged buttons to make navigation simple and accessible. The Workout Log button navigates to the Workout Log Screen. The remaining logging options currently lead to placeholder screens, because these features are outside the scope of the MVP (Section~8.3).
+
+\paragraph{Status Screen.}
+The Status Screen is opened from the Stats option of the Home Screen. It shows the workout history of the user as a monthly calendar, where days with logged workouts are marked and the visible month can be changed. When the user selects a day, the screen lists the workouts of that day. Each workout is shown as a card with its duration, intensity, trained muscle groups, and the name of the template that was used, if any. A day without workouts shows an empty message. The screen only reads the saved workout history, so every workout saved in the Workout Log appears here automatically, and the history is still there after the application restarts. A back button returns to the Home Screen.
+
+\paragraph{Growth Simulation Screen.}
+The Growth Simulation Screen is a developer tool in the header menu of the Home Screen. It replays the 91-day cycle for the four builds with a simulated user (under, on or over the goal) and shows the avatars and whether they can ascend on each day. The same menu has two buttons, Force End Cycle and Force Maxed Avatar, which allow us to check the two conditions of the ascension without waiting 91 days.
+
+\paragraph{Navigation Implementation.}
+Screen navigation is managed through the \texttt{ScreenManager} class and the \texttt{Screens} enumeration. Each screen accesses the \texttt{ScreenManager} through \texttt{Provider} and calls \texttt{setScreen()} when a navigation button is pressed. The class \texttt{app.dart} watches the manager and shows the matching screen with a short fade. The system back gesture is passed to \texttt{goBack()}, which returns to the previous screen and does nothing on the Home and Login screens, so a stray swipe does not close the application. This approach separates navigation state from individual screen layouts and allows the application to switch between screens without duplicating navigation logic. A new screen only needs a new value in the \texttt{Screens} enumeration.
 
 \subsubsection*{Workout Log}
-The workout log screen implements requirement R2. It lets the user enter the three inputs the avatar growth calculation depends on:
+The Workout Log screen implements requirement R2. It lets the user enter the three inputs the avatar growth calculation depends on:
 \begin{itemize}
-  \item \textbf{Duration:} the length of the workout.
-  \item \textbf{Muscle group:} the muscle group trained, selected from a fixed list.
-  \item \textbf{Intensity level:} how demanding the workout was.
+  \item \textbf{Duration:} the length of the workout, from 5 minutes to 2 hours.
+  \item \textbf{Muscle group:} one or more muscle groups trained, selected from a fixed list.
+  \item \textbf{Intensity level:} how demanding the workout was (light, moderate or heavy).
 \end{itemize}
-Using selection controls for the muscle group and intensity keeps the input consistent and avoids invalid values.
-When the user confirms an entry, the screen passes the logged data to the growth logic (R3), 
-which applies growth to the corresponding muscles, and the user returns to the avatar screen, where the updated appearance is displayed (R4).
+Using selection controls for the duration, the muscle groups and the intensity keeps the input consistent and avoids invalid values, and the Save button is only enabled when the input is complete. When the user confirms an entry, the screen passes the logged data to the growth logic (R3), which applies growth to the corresponding muscles. The workout and the new growth are saved together, and the user returns to the Home Screen with a confirmation, where the updated avatar is displayed (R4).
 
 \subsubsection*{Workout Log Template}
-Entering the same workout repeatedly is tedious, which works against the goal of building a consistent habit, a need shared by all three personas. 
-To reduce this effort, I implemented workout log templates. A template stores a combination of muscle group, duration, and intensity that the user performs regularly. 
-Selecting a template fills in the workout log form, so a routine workout can be logged in a few taps. 
-The user can still adjust any value before confirming, so a template acts as a starting point rather than a fixed entry.
+Entering the same workout repeatedly is tedious, which works against the goal of building a consistent habit, a need shared by all three personas. To reduce this effort, I implemented workout log templates. On the Template Screen, the user can save a combination of muscle groups and intensity under a name, choose a saved template from a list, or delete it. A template does not store the duration, which the user still chooses for each workout. Selecting a template opens the Workout Log with the muscle groups and the intensity already filled in, so a routine workout can be logged in a few taps. The user can still adjust any value before confirming, so a template acts as a starting point rather than a fixed entry. The name of the template is stored with the workout and is shown on the Status Screen.
+
+\subsubsection*{Growth, Cycle, Ascension and Persistence}
+The screens above are connected to the rest of the main features as follows. Section~7.2 describes the details.
+\begin{itemize}
+  \item \textbf{Muscle-specific growth (R3).} \texttt{GrowthCalculator} converts a saved workout into growth points, divides them between the trained muscles, and \texttt{UserProfile} adds them to the avatar. The growth needed to max a muscle depends on the weekly goal chosen at avatar creation.
+  \item \textbf{Avatar display (R4).} \texttt{AvatarDisplay} draws the avatar from sprite layers. It is used on the Home, Avatar Creation, Avatar Selection and Growth Simulation Screens, so the avatar looks the same everywhere.
+  \item \textbf{91-day cycle (R5).} \texttt{CycleManager} stores the start date and is updated after every workout. The Home Screen checks it to know when the user can ascend.
+  \item \textbf{Ascension and rewards (R6, R7).} Pressing Ascend saves the finished avatar as an \texttt{AvatarRecord}, raises the ascension level, and sends the user to the Avatar Creation Screen for a new cycle. The badge of the new level is shown on the Home and Avatar Selection Screens.
+  \item \textbf{Persistence (R8).} \texttt{StorageService} saves all user data after every change and loads it when the application starts, so the avatar, the workout history, the templates, the cycle and the badge are still there after a restart.
+\end{itemize}
+
+
 % ============================================================
 % 7. Rewuired Resources and Feasibility
 % ============================================================
@@ -673,6 +728,8 @@ The user can still adjust any value before confirming, so a template acts as a s
 \subsection{Hardware, Software, and Other Resources}
 The front-end development requires a computer capable of running Flutter development tools and an Android emulator. The main software resources include Flutter, Dart, Android Studio, Git, and GitHub.
 Flutter and Dart are used to develop the application interface, while Android Studio provides an environment for running and inspecting the application. Git and GitHub support collaborative development by allowing team members to maintain separate branches, track code changes, and integrate their contributions. The Provider package is used to manage application navigation state.
+
+The avatar system requires additional resources to create its visual assets. Blender \cite{blender} and the MPFB2 plugin \cite{mpfb2} are used to model the avatar and render its sprites. Both are free and open source: MPFB2 is distributed under the GPL, and MakeHuman's core assets are released under CC0 \cite{makehumanlicense}, so they can be used in MakeMe without licensing costs. The asset pipeline's scripts are written in Python using Blender's built-in Python API and NumPy, so no additional software is required. Rendering the sprites requires a computer capable of running Blender, as each gender needs approximately 100 muscle sprites in addition to the build and face layers, each exported at three pixel densities. Within the application, the avatar's data and progression logic are implemented in Dart in the Avatar and UserProfile classes, and the shared\_preferences and sqflite packages are included in the project for storing user and avatar data locally on the device.
 
 \subsection{Feasibility Within the Available
 Time and Resources}
@@ -737,183 +794,37 @@ the three cases for users who are: underperforming, over performing, or hitting 
 “Force End Cycle” and “Force Maxed Avatar” verify that a completed full 91-day cycle and reaching the maximum
 growth for all muscles triggers an ascension and ends the cycle.
 
-
 % ============================================================
-% 7. Rewuired Resources and Feasibility
+% 8. Results and Discussion
 % ============================================================
-\section{Required Resources and Feasibility}
-
-\subsection{Hardware, Software, and Other Resources}
-The front-end development requires a computer capable of running Flutter development tools and an Android emulator. The main software resources include Flutter, Dart, Android Studio, Git, and GitHub.
-Flutter and Dart are used to develop the application interface, while Android Studio provides an environment for running and inspecting the application. Git and GitHub support collaborative development by allowing team members to maintain separate branches, track code changes, and integrate their contributions. The Provider package is used to manage application navigation state.
-
-The avatar system requires additional resources to create its visual assets. Blender \cite{blender} and the MPFB2 plugin \cite{mpfb2} are used to model the avatar and render its sprites. Both are free and open source: MPFB2 is distributed under the GPL, and MakeHuman's core assets are released under CC0 \cite{makehumanlicense}, so they can be used in MakeMe without licensing costs. The asset pipeline's scripts are written in Python using Blender's built-in Python API and NumPy, so no additional software is required. Rendering the sprites requires a computer capable of running Blender, as each gender needs approximately 100 muscle sprites in addition to the build and face layers, each exported at three pixel densities. Within the application, the avatar's data and progression logic are implemented in Dart in the Avatar and UserProfile classes, and the shared\_preferences and sqflite packages are included in the project for storing user and avatar data locally on the device.
-
-\subsection{Feasibility Within the Available
-Time and Resources}
-
-The front-end implementation is feasible within the available development resources because Flutter provides reusable widgets and built-in interface components. The use of shared colors, reusable button layouts, and a centralized navigation manager reduces the complexity of implementing multiple screens. The current prototype demonstrates the initial navigation flow from the Login Screen to the Workout Log Screen.
-However, several features remain incomplete. Some navigation options currently lead to placeholder screens, and the Workout Log interface does not yet support recording or storing workout information. Future development will require connecting the interface to the application's data models and implementing functional input components for workout and habit tracking.
-Overall, the existing front-end provides a foundation for further development of MakeMe's fitness tracking functionality.
-
-The avatar system was developed within the project's seven-week timeline. Because the avatar's visual progression depends on its assets, the asset pipeline was prioritized during the first half of this period. By the end of the third week, the male avatar model, its body regions, the build and muscle levels, the face presets, and the shared-level system had been completed.
-
-The remaining avatar work is feasible within the available time because most of the pipeline is automated. The female avatar follows the same process, and the scripts written for the male model can be reused. All sprites are rendered by a batch script rather than by hand, so the assets can be regenerated after any change without additional manual work. In the application, the remaining tasks are extending the Avatar model with the build progress and shared level, updating AssetPaths to the new naming scheme, and connecting AvatarDisplay to the home and avatar creation screens. Each of these tasks builds on classes that already exist.
-
-The main risk is the number of sprites the system requires, which increases both rendering time and the size of the application. If necessary, MakeMe can reduce this by removing the highest pixel density or limiting the number of muscle levels, with only minor changes to the application. If time becomes limited, the female avatar can be completed after the male avatar is fully integrated, ensuring that the core avatar progression is demonstrated by the deadline.
-
-
-% ============================================================
-% 8. Results and DIscussion
-% ============================================================
-\section{Implementation Goals and Scope}
-
-\subsection{Implementation Goals}
-
-% State 3–5 concrete goals.
-% Goals should describe observable capabilities rather than vague intentions.
-
-
-\subsection{Core Functional Requirements}
-
-% List 4–6 core functional requirements.
-% Focus on externally visible behavior rather than implementation details.
-
-\begin{itemize}
-    \item \textbf{R1.} Initial Avatar Set Up. The system will collect initial user data through a survey and use the response as the avatars baseline.
-    \item \textbf{R2.} Workout Logging and Muscle-Specific Growth. A dedicated workout logger that collects duration, selected exercised
-         body parts, and intensity level from user input. The system uses this input to calculate growth for selected body parts.
-    \item \textbf{R3.} Workout Streak Tracking: The system maintains a workout streak using a 48-interval after a workout log,
-         allowing users to include rest days without automatically breaking their streaks.
-    \item \textbf{R4.} Avatar Decay. The avatar decays continuously and can be accelerated through poor meal logging habits.
-         This system balances growth from workout logging to simulate a semi-realistic growth rate. 
-    \item \textbf{R5.} Avatar State System: The system updates the avatars’ appearance and state based on the user’s logged habits.
-    \item \textbf{R6.} Habit Logging. Allows users to record meals, hydration and sleep that contributes to avatars state system and progression.
-    \item \textbf{R7.} Bulk Progression. Accumulated throughout the cycle and reads through macro report from macro tracker and calculates
-         progression in clean bulk and dirty bulk that influence the avatars overall appearance.
-    \item \textbf{R8.} Recovery and Revival. Prolonged period of inactivity can result to the avatars death. A recovery system
-         detects the users return within three stages that determines recovery state from initial return work out logging to a three-day
-          workout streak. The avatar loses all its progress and will return to its initial state.
-    \item \textbf{R9.} Cycle Completion and Summary. The system tracks a 90-day cycle to simulate a three-month transformation and presents
-         a summary of the user’s activity, avatar development, and achievements.
-    \item \textbf{R10.} Ascension System. Determines if the user has completed their long-term goals and allows the user to begin a new cycle,
-        including a new initial survey and avatar baseline. A badge or title will be rewarded with each ascension.
-    \item \textbf{R11.} Limited rewards such as badges or cosmetic items for completing certain milestones.
-\end{itemize}
-
-\subsection{Initial Scope}
-
-\textbf{In scope.}
-The initial version of MakeMe will focus on implementing the avatar’s initial configuration, muscle growth, workout logging,
-     streak system, and time-based decay. It will also include habit logging with template, supporting avatars conditional states and bulk progression.
-        A 90-day progression cycle, cycle-completion and summary that provides the user a long term objective.
-
-        
-    one challenhge that i faced is the workout log funtion. it shold be saved workouut log, but chould not combine the logic with appearance.
-    The same problem for the template implementation. the 
-    One point that i have leaned is how to use Github also for commands.
-    i didn't know that i coulf change the committed files add or remove them during PR is progress.
-    
-\medskip
-
-\textbf{Out of scope.}
-The initial implementation will exclude extensive equipment collections, multiplayer features, competitive leaderboards,
-     and advanced social systems. Character customization, avatar appearance states, and visual progression will also be
-        limited to a predefined set of options. Additionally, the application will not provide medical diagnoses or claim
-     that avatar development accurately represents a user's real body composition or physical health.
+\section{Results and Discussion}
 
 \subsection{Proposed Features and Their Completion Status}
 
-Table~\ref{tab:completion} compares the features proposed at the start of the project (Section~9.2) with the final application. Each feature has one of four statuses:
-\begin{itemize}
-  \item \textbf{Completed:} implemented as proposed.
-  \item \textbf{Simplified:} implemented in a reduced form.
-  \item \textbf{Placeholder:} only the screens exist, and the function is not implemented.
-  \item \textbf{Not implemented:} dropped from the MVP.
-\end{itemize}
+Table~\ref{tab:completion} shows the status of each high-level requirement of Section~4.2 and how it differs from the original proposal (Table~1).
 
 \begin{table}[h]
 \centering
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{0.04\textwidth}|p{0.22\textwidth}|p{0.15\textwidth}|p{0.47\textwidth}|}
+\begin{tabular}{|p{0.06\textwidth}|p{0.2\textwidth}|p{0.17\textwidth}|p{0.47\textwidth}|}
 \hline
-\textbf{ID} & \textbf{Proposed feature} & \textbf{Status} & \textbf{Result} \\ \hline
-R1 & Initial avatar set up & Simplified & The survey and the avatar creation were merged into one avatar creation screen. The user chooses a name, gender, starting build, head options and colours, and a weekly goal, with a live preview. \\ \hline
-R2 & Workout logging and muscle-specific growth & Completed & The workout log collects duration, muscle groups and intensity, and the growth is applied to the trained muscles. Workout templates were added (Section~6.2). \\ \hline
-R3 & Workout streak tracking & Not implemented & Planned as future work. It does not affect muscle growth, so it was not needed for the core cycle. \\ \hline
-R4 & Avatar decay & Not implemented & Dropped because of the large number of extra sprites it needs. \\ \hline
-R5 & Avatar state system & Not implemented & Dropped for the same reason as avatar decay. \\ \hline
-R6 & Habit logging (meals, hydration, sleep) & Placeholder & The habit logger screen has buttons for these logs, but they open a placeholder screen. They are outside the scope of the MVP, and there is no design yet for how they change the avatar. \\ \hline
-R7 & Bulk progression & Not implemented & Dropped because it depends on nutrition tracking and needs extra sprites. \\ \hline
-R8 & Recovery and revival & Not implemented & Dropped because it depends on decay and the state system, and needs extra sprites. \\ \hline
-R9 & Cycle completion and summary & Simplified & The cycle length was changed to 91 days. The summary was reduced to the number of weeks in which the weekly goal was met compared with the total number of weeks, saved in each avatar record. \\ \hline
-R10 & Ascension system & Completed & The user can ascend when the 91 days are over, or earlier when every muscle is maxed. The finished avatar is saved, and the user creates a new avatar. The maxed condition was added to the original design. \\ \hline
-R11 & Limited rewards & Simplified & Only badges were implemented. There are 16, and one is awarded with each ascension. \\ \hline
+\textbf{Req.} & \textbf{Requirement} & \textbf{Status} & \textbf{Difference from the original proposal} \\ \hline
+R1 & Initial avatar set up & Completed, changed & The survey was merged into the avatar creation screen, and a weekly goal was added. \\ \hline
+R2 & Workout logging & Completed & Workout templates were added. \\ \hline
+R3 & Muscle-specific growth & Completed & The pace of growth depends on the weekly goal. \\ \hline
+R4 & Avatar display & Completed & A workout history calendar (status screen) was added. \\ \hline
+R5 & 91-day cycle & Completed, changed & The cycle length was changed from 90 to 91 days (Section~3.1.1). \\ \hline
+R6 & Ascension system & Completed, changed & Ascension is also possible when every muscle is maxed. The summary was reduced to the weeks in which the goal was met. \\ \hline
+R7 & Reward system & Completed, changed & Only badges were implemented (16 in total). \\ \hline
+R8 & Persistence & Completed & All user data is saved and loaded. \\ \hline
 \end{tabular}
-\caption{Completion status of the originally proposed features.}
+\caption{Completion status of the high-level requirements.}
 \label{tab:completion}
 \end{table}
 
-Of the eleven proposed features, two were completed as proposed (R2 and R10), three were completed in a simplified form (R1, R9 and R11), one exists only as a placeholder (R6), and five were not implemented (R3, R4, R5, R7 and R8). The five features that were not implemented, and habit logging, were the ones that depend on additional visual assets or on tracking beyond workouts. The core of the original idea was delivered: a personalised avatar that grows in the muscles the user trains, within a 91-day cycle that ends with an ascension and a reward. The reasons for the missing features are discussed in Section~9.5, and the ones that remain are listed as future work in Section~10.2.
+All eight high-level requirements were implemented. Four of them (R2, R3, R4 and R8) were completed as proposed, and four (R1, R5, R6 and R7) were completed with changes to keep the scope within the project time. The changes are explained in Section~3.2 and Section~4.1.
 
-The final scope also differs from the plan in a few ways, so the revised requirements in Section~4.2 describe the final application. Features that were not in the original proposal were added:
-
-\begin{itemize}
-  \item \textbf{Workout templates} to make repeated entries faster.
-  \item \textbf{Weekly goal} chosen at avatar creation, which sets the growth needed to max each muscle.
-  \item \textbf{Avatar history} where each finished avatar is shown on the avatar selection screen, with its badge and weeks met.
-  \item \textbf{Workout history calendar} (status screen) that shows the saved workouts of each day.
-  \item \textbf{Persistent storage} (R8 in Section~4.2), so that all data survives restarts.
-  \item \textbf{Growth simulator and debug tools} that verify the growth pace and the ascension conditions without waiting 91 days (Section~7.2.2).
-\end{itemize}
-
-\subsection{Challenges, Limitations, and Reasons for Incomplete Features}
-
-\subsubsection{Challenges}
-
-\paragraph{Making growth fair for every build and goal.}
-Requirement R3 says the system must calculate growth, but it does not say how fast an avatar should grow. If growth is too fast, users max out their avatar in a few weeks. If it is too slow, a user who follows their own goal never sees the avatar complete. We therefore tied the growth needed to reach the highest level to the user's weekly goal, and checked the result by replaying the whole 91-day cycle with simulated users (\texttt{GrowthSimulator}) for every build and goal. This showed that users who meet their goal max their avatar inside the cycle, users who train more max earlier, and users who train less never max and ascend at day 91.
-
-\paragraph{Keeping the avatar log consistent.}
-We store the raw growth of each muscle, which only ever increases, and translate it into a displayed level when the avatar is drawn (\texttt{AvatarSprites}). This means the appearance can be retuned without rewriting the user's saved data, and the stored data stays consistent for the whole cycle.
-
-
-\paragraph{Screen navigation and shared state.}
-With ten screens, we needed navigation that does not duplicate logic in each screen. \texttt{ScreenManager} handles this and also intercepts the system back gesture, so that a stray swipe on the home or login screen does not close the app. State shared between screens, such as a template chosen for the next workout, raised its own problem. The chosen template is kept in memory in \texttt{UserProfile} and handed over once by \texttt{takePendingTemplate()}. This method deliberately does not notify listeners, because it is called while the workout log screen is being built, and notifying at that point causes a Flutter error.
-
-\paragraph{Reliable saving and loading.}
-All user data is saved as one JSON string, so damaged data must not prevent the application from starting. Loading is therefore defensive: unreadable data gives an empty profile, a single unreadable history record or workout is skipped while the others are kept, and out-of-range values are clamped. Saving runs in the background after every change, using a snapshot that is built immediately, so that a later change cannot affect a save in progress.
-
-\paragraph{Collaboration and version control.}
-Working with branches and pull requests on GitHub was new to some team members. For example, we learned that files can be added to or removed from a commit while the pull request is still open. We solved this by keeping the models, services, screens and widgets in separate files, so that team members could work on different parts with fewer conflicts.
-
-
-\subsubsection{Limitations}
-\paragraph{No user accounts or cloud storage.}
-The login screen has no authentication. ``Start'' leads directly to the avatar selection screen, and ``Sign up'' leads to a placeholder screen. All data is stored locally on the device with \texttt{SharedPreferencesAsync}. It is therefore not synchronised between devices, and it is lost if the application data is cleared. On web builds, the data is also stored separately for each address and port.
-
-\paragraph{Simplified workout data.}
-A workout records only the duration, the muscle groups and the intensity. Exercises, sets, repetitions and weights are not recorded, and the total growth is divided equally between the selected muscles. Avatar growth is therefore an estimate of training time and effort, not a measure of the real training load. 
-
-\paragraph{Fixed growth model.}
-The growth formula and the target growth per weekly goal are fixed in the code. They were calibrated with simulated users, not with data from real users over several months, so the pace of progression has not yet been validated with real users.
-
-\paragraph{Limited customisation and rewards.}
-Customisation is limited to a predefined set of head options, colours and four starting builds, because every combination needs its own sprites. There are 16 badges in total, which is also the highest ascension level. At the last level, the avatar can still ascend, but the level does not increase.
-
-
-\subsubsection{Incomplete Features}
-
-The features below were part of the original proposal but are not in the MVP (Table~1). Most were dropped because of the limited time and because they needed large amounts of additional visual assets, as explained in Section~4.1.
-
-\begin{itemize}
-  \item \textbf{Avatar decay, avatar state system, bulk progression, and recovery and revival.} Each of these would need many extra sprites for the new appearances (for example a decayed, recovering or bulked avatar). Making these assets was not possible within the project's seven-week timeline. A 3D model would make them easier to add.
-  \item \textbf{Habit logging (meals, hydration, sleep).} The habit logger screen still shows buttons for these logs, but they lead to a placeholder screen. They were left out because there was no clear design for how nutrition, hydration and sleep should change the avatar, and the MVP focuses on workouts. 
-  \item \textbf{Cycle completion summary.} The detailed summary was reduced to the number of weeks in which the user met their weekly goal compared to the total number of weeks.
-  \item \textbf{Rewards.} Only badges were implemented. Other rewards, such as titles and cosmetic items, are not included.
-  \item \textbf{Accounts and synchronisation.} These were not part of the high-level requirements, so the application works for one user on one device.
-\end{itemize}
-
+The features of the original proposal that are not part of R1--R8, which are workout streak tracking, avatar decay, the avatar state system, habit logging, bulk progression, and recovery and revival, were not implemented. They are listed with their reasons in Section~8.3. Some features were added that were not in the original proposal: workout templates, the weekly goal, the avatar history on the avatar selection screen, the workout history calendar, and the growth simulator.
 
 \subsection{Testing and Results}
 
@@ -979,9 +890,59 @@ The automated tests cover the parts of the application where an error would be h
   \item The application has not yet been tested with real users over a full 91-day cycle.
 \end{itemize}
 Testing with real users, and tests for the screens, are listed as future work in Section~10.2.
+\subsection{Challenges, Limitations, and Reasons for Incomplete Features}
 
+\subsubsection{Challenges}
 
+\paragraph{Separating the workout log from the avatar's appearance (R2, R3, R4).}
+A workout log has to be saved exactly as the user entered it, but it should not be mixed with the logic that draws the avatar. The same applied to templates. \texttt{WorkoutLogEntry} therefore stores only the user's inputs, \texttt{GrowthCalculator} calculates the growth from them, \texttt{UserProfile} applies it to the avatar, and the display code never reads the workouts. The growth rules can then be changed without rewriting saved workouts.
 
+\paragraph{Making growth fair for every build and goal (R3).}
+Requirement R3 says that the system must calculate growth, but it does not say how fast an avatar should grow. If growth is too fast, users max out their avatar in a few weeks. If it is too slow, a user who follows their own goal never sees the avatar complete. We therefore tied the growth needed to reach the highest level to the user's weekly goal, and checked the result by replaying the whole 91-day cycle with simulated users (\texttt{GrowthSimulator}) for every build and goal. This showed that users who meet their goal max their avatar inside the cycle, users who train more max earlier, and users who train less never max and ascend at day 91.
+
+\paragraph{Keeping the stored data consistent (R3, R4).}
+We store the raw growth of each muscle, which only ever increases, and translate it into a displayed level when the avatar is drawn (\texttt{AvatarSprites}). The appearance can therefore be retuned without rewriting the user's saved data.
+
+\paragraph{Layered avatar rendering (R1, R4).}
+Because each body region is a separate sprite layer, neighbouring layers must line up exactly, and early tests produced visible pinching between regions. The shared level $g$ solved this (Section~7.2.1), but it means that every pair of shared level and region level needs its own sprite. The number of sprites made the rendering time and the size of the application the main practical concern of the asset pipeline.
+
+\paragraph{When a cycle ends (R5, R6).}
+An ascension must become available on exactly day 91, not on day 90, and also when the user does not open a workout for a long time. We therefore check the length of the cycle against the real clock, not only when the avatar changes, and we wrote tests for the days around the end of the cycle.
+
+\paragraph{Screen navigation and shared state.}
+With ten screens, we needed navigation that does not duplicate logic in each screen. \texttt{ScreenManager} handles this, and together with the back-gesture handler of the application it keeps a stray swipe on the home or login screen from closing the application. State shared between screens, such as a template chosen for the next workout, raised its own problem. The chosen template is kept in memory in \texttt{UserProfile} and handed over once by \texttt{takePendingTemplate()}. This method deliberately does not notify listeners, because it is called while the workout log screen is being built, and notifying at that point causes a Flutter error.
+
+\paragraph{Reliable saving and loading (R8).}
+All user data is saved as one JSON string, so damaged data must not prevent the application from starting. Loading is therefore defensive: unreadable data gives an empty profile, a single unreadable history record or workout is skipped while the others are kept, and out-of-range values are clamped. Saving runs in the background after every change, using a snapshot that is built immediately, so that a later change cannot affect a save in progress.
+
+\paragraph{Collaboration and version control.}
+Working with branches and pull requests on GitHub was new to some team members. For example, we learned that files can be added to or removed from a commit while the pull request is still open. Keeping the models, services, screens and widgets in separate files let team members work on different parts with fewer conflicts.
+
+\subsubsection{Limitations}
+
+\paragraph{Simplified workout data (R2, R3).}
+A workout records only the duration, the muscle groups and the intensity. Exercises, sets, repetitions and weights are not recorded, and the total growth is divided equally between the selected muscles. Avatar growth is therefore an estimate of training time and effort, not a measure of the real training load.
+
+\paragraph{Fixed growth model (R3).}
+The growth formula and the target growth per weekly goal are fixed in the code. They were calibrated with simulated users, not with data from real users over several months, so the pace of progression has not yet been validated with real users.
+
+\paragraph{Limited customisation and rewards (R1, R7).}
+Customisation is limited to a predefined set of head options, colours and four starting builds, because every combination needs its own sprites. There are 16 badges in total, which is also the highest ascension level. At the last level, the avatar can still ascend, but the level does not increase.
+
+\paragraph{Local storage only (R8).}
+All data is stored on the device with \texttt{SharedPreferencesAsync}. It is not synchronised between devices, and it is lost if the application data is cleared. On web builds, the data is also stored separately for each address and port. The login screen has no authentication: ``Start'' leads directly to the avatar selection screen, and ``Sign up'' leads to a placeholder screen.
+
+\subsubsection{Incomplete Features}
+
+The features below were part of the original proposal but are not among the high-level requirements R1--R8 and are not in the MVP (Table~1). Most were dropped because of the limited time and because they needed large amounts of additional visual assets, as explained in Section~4.1.
+
+\begin{itemize}
+  \item \textbf{Avatar decay, avatar state system, bulk progression, and recovery and revival.} Each of these would need many extra sprites for the new appearances (for example a decayed, recovering or bulked avatar). Making these assets was not possible within the project's seven-week timeline. A 3D model would make them easier to add (Section~9.2).
+  \item \textbf{Habit logging (meals, hydration, sleep).} The habit logger screen still shows buttons for these logs, but they lead to a placeholder screen. They were left out because there was no clear design for how nutrition, hydration and sleep should change the avatar, and the MVP focuses on workouts. This matters especially for users like Persona~2, who would like to track more habits in one application.
+  \item \textbf{Workout streak tracking.} It does not affect muscle growth, so it was not needed for the core cycle of logging workouts, growth and ascension, and it is planned as future work.
+  \item \textbf{Cycle completion summary and other rewards.} The detailed summary was reduced to the number of weeks in which the weekly goal was met, and only badges were implemented as rewards.
+  \item \textbf{User accounts and synchronisation.} These are not part of R1--R8, so the application works for one user on one device.
+\end{itemize}
 
 
 
@@ -991,39 +952,36 @@ Testing with real users, and tests for the screens, are listed as future work in
 
 \section{Conclusion and Future Work}
 
-\section{Conclusion and Future Work}
-
 \subsection{Summary of Achievements}
 
-MakeMe meets all eight high-level requirements of Section~4.2. Users can create a personalised avatar, log workouts, and see the muscles of their avatar grow. Their progress is tracked over a 91-day cycle, and they receive a badge when they ascend. Table~\ref{tab:achievements} summarises how each requirement was implemented.
+MakeMe meets all eight high-level requirements of Section~4.2. Users can create a personalised avatar, log workouts, and watch the muscles of their avatar grow in the regions they train. Their progress is tracked over a 91-day cycle, and they receive a badge when they ascend. Table~\ref{tab:achievements} summarises what was achieved for each requirement.
 
 \begin{table}[h]
 \centering
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{0.07\textwidth}|p{0.25\textwidth}|p{0.58\textwidth}|}
+\begin{tabular}{|p{0.06\textwidth}|p{0.22\textwidth}|p{0.40\textwidth}|p{0.22\textwidth}|}
 \hline
-\textbf{Req.} & \textbf{Feature} & \textbf{Implementation} \\ \hline
-R1 & Initial avatar set up & The avatar creation screen lets users choose a name, a weekly goal, gender, starting build, head options (hair, eyes, nose, mouth) and skin and hair colour, with a live preview. \\ \hline
-R2 & Workout logging & The workout log screen collects duration, one or more muscle groups and the intensity. Workout templates store muscle groups and intensity for routines that the user repeats. \\ \hline
-R3 & Muscle-specific growth & \texttt{GrowthCalculator} converts a workout into growth, which is shared between the trained muscles and added to the avatar by \texttt{UserProfile}. \\ \hline
-R4 & Avatar display & \texttt{AvatarDisplay} draws the avatar from layered sprites, and the home screen shows its current appearance. The status screen shows the workout history in a calendar. \\ \hline
-R5 & 91-day cycle & \texttt{CycleManager} tracks the cycle start and the 91-day length, and it is restored after the application restarts. \\ \hline
-R6 & Ascension system & When the avatar is maxed or the cycle has ended, the home screen asks the user to ascend. The finished avatar is saved as an \texttt{AvatarRecord}, and the user creates a new avatar. \\ \hline
-R7 & Reward system & Each ascension raises the user's level and awards one of 16 badges. Finished avatars and the badge are shown on the avatar selection screen. \\ \hline
-R8 & Persistence & The whole \texttt{UserData} snapshot is saved after every change and loaded at startup. Damaged data does not stop the application from starting. \\ \hline
+\textbf{Req.} & \textbf{Feature} & \textbf{Achievement} & \textbf{Main components} \\ \hline
+R1 & Initial avatar set up & Users choose a name, weekly goal, gender, starting build, head options and colours, with a live preview. & \texttt{AvatarCreation}, \texttt{Avatar}, \texttt{HeadConfig} \\ \hline
+R2 & Workout logging & Users log duration, muscle groups and intensity, and reuse routines with templates. & \texttt{WorkoutLog}, \texttt{WorkoutTemplate} \\ \hline
+R3 & Muscle-specific growth & Each workout grows the trained muscles, and the pace follows the weekly goal. & \texttt{GrowthCalculator} \\ \hline
+R4 & Avatar display & The avatar is drawn from layered sprites with seamless borders between regions. The workout history is shown in a calendar. & \texttt{AvatarDisplay}, \texttt{AvatarSprites}, \texttt{StatusScreen} \\ \hline
+R5 & 91-day cycle & The cycle is tracked, restored after a restart, and ends on day 91 or when every muscle is maxed. & \texttt{CycleManager} \\ \hline
+R6 & Ascension system & The finished avatar is saved with its weeks met, and the user starts a new avatar. & \texttt{UserProfile}, \texttt{AvatarRecord} \\ \hline
+R7 & Reward system & Each ascension gives one of 16 badges, shown with the avatar and on the avatar selection screen. & \texttt{AscensionBadge} \\ \hline
+R8 & Persistence & All data is saved after every change and loaded at startup, and damaged data does not stop the application. & \texttt{UserData}, \texttt{StorageService} \\ \hline
 \end{tabular}
-\caption{Summary of how each high-level requirement was implemented.}
+\caption{Summary of the achievements for each high-level requirement.}
 \label{tab:achievements}
 \end{table}
 
-Beyond the requirements, achieved the following:
+Beyond the requirements, the team achieved the following:
 \begin{itemize}
   \item \textbf{Weekly goal feedback.} Each finished avatar stores the number of weeks in which the user met their weekly goal, so that users can review how consistent they were in each cycle.
   \item \textbf{Clear architecture.} Navigation, user data, growth rules, sprite selection and storage are in separate classes, using the Observer, Immutable Object and Dependency Injection patterns. A new screen only needs a new entry in the \texttt{Screens} enumeration.
-  \item \textbf{Automated testing.} 157 unit tests in 10 test files cover the models and services, including a calibration test that replays a full 91-day cycle for different builds, goals and training habits.
+  \item \textbf{Automated testing.} 122 test definitions in 10 files, which run as 157 test cases, cover the models and services, including calibration tests that replay a full 91-day cycle for different builds, goals and training habits (Section~8.2).
   \item \textbf{Demo and debug tools.} The profile menu can end the cycle or max the avatar immediately, and a growth simulator screen shows how avatars develop over 91 days (Section~7.2.2).
 \end{itemize}
-
 \subsection{Possible Improvements and Extensions}
 \begin{itemize}
     \item \textbf{Transition to a 3D Model:} Replacing the current 2D sprite-based avatar system with a 3D character
@@ -1041,7 +999,11 @@ Beyond the requirements, achieved the following:
 \end{itemize}
 
 
+% ============================================================
+% 10. References
+% ============================================================
 
+\section{References}
 \clearpage
 \printbibliography[heading=bibnumbered, title={References}]
 \clearpage
