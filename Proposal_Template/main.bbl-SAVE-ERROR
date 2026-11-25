@@ -19,6 +19,52 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global/global}
+    \entry{knight2015public}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=741abddcd77607e60b8e6c84af108a84}{%
+           family={Knight},
+           familyi={K\bibinitperiod},
+           given={Emily},
+           giveni={E\bibinitperiod}}}%
+        {{hash=9a5bb27874eea8140b3b671b9ca23a84}{%
+           family={Stuckey},
+           familyi={S\bibinitperiod},
+           given={Melanie\bibnamedelima I.},
+           giveni={M\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
+        {{hash=b20039e2524d9e01d392eade182876f2}{%
+           family={Prapavessis},
+           familyi={P\bibinitperiod},
+           given={Harry},
+           giveni={H\bibinitperiod}}}%
+        {{hash=b4d329a4e9073053c037c1006b54484b}{%
+           family={Petrella},
+           familyi={P\bibinitperiod},
+           given={Robert\bibnamedelima J.},
+           giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{a34d8bdf4b3aaea9b571e1a5f3ceb1ec}
+      \strng{fullhash}{cd2528a601a6e6d6c180501a74047a89}
+      \strng{fullhashraw}{cd2528a601a6e6d6c180501a74047a89}
+      \strng{bibnamehash}{cd2528a601a6e6d6c180501a74047a89}
+      \strng{authorbibnamehash}{cd2528a601a6e6d6c180501a74047a89}
+      \strng{authornamehash}{a34d8bdf4b3aaea9b571e1a5f3ceb1ec}
+      \strng{authorfullhash}{cd2528a601a6e6d6c180501a74047a89}
+      \strng{authorfullhashraw}{cd2528a601a6e6d6c180501a74047a89}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{JMIR mHealth and uHealth}
+      \field{number}{2}
+      \field{title}{Public Health Guidelines for Physical Activity: Is There an App for That? A Review of Android and Apple App Stores}
+      \field{volume}{3}
+      \field{year}{2015}
+      \field{pages}{e43}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.2196/mhealth.4003
+      \endverb
+    \endentry
     \entry{fox2009VRS}{article}{}{}
       \name{author}{2}{}{%
         {{hash=1a73b9b7d46da66580e8865ab17a34a9}{%
@@ -40,8 +86,8 @@
       \strng{authornamehash}{2de2de68b1427fdbd2d23a29e440c1ed}
       \strng{authorfullhash}{2de2de68b1427fdbd2d23a29e440c1ed}
       \strng{authorfullhashraw}{2de2de68b1427fdbd2d23a29e440c1ed}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Media Psychology - MEDIA PSYCHOL}
@@ -76,8 +122,8 @@
       \strng{authornamehash}{6471fde7654fdb4e4a2426ee6006129a}
       \strng{authorfullhash}{6471fde7654fdb4e4a2426ee6006129a}
       \strng{authorfullhashraw}{6471fde7654fdb4e4a2426ee6006129a}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the 15th international conference on the foundations of digital games}
@@ -105,8 +151,8 @@
       \strng{authornamehash}{2432f539835ec884067bd3826e291388}
       \strng{authorfullhash}{2432f539835ec884067bd3826e291388}
       \strng{authorfullhashraw}{2432f539835ec884067bd3826e291388}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{day}{9}
@@ -144,8 +190,8 @@
       \strng{authornamehash}{d162e618373bc4921e8d635dee2efbfe}
       \strng{authorfullhash}{d162e618373bc4921e8d635dee2efbfe}
       \strng{authorfullhashraw}{d162e618373bc4921e8d635dee2efbfe}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{day}{17}
@@ -205,8 +251,8 @@
       \strng{authornamehash}{a7b8bdc6dd61f2ec34c15088bf098088}
       \strng{authorfullhash}{676735ddbdda10ddc791af4d18794bce}
       \strng{authorfullhashraw}{676735ddbdda10ddc791af4d18794bce}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the Annual Symposium on Computer-Human Interaction in Play}
@@ -254,8 +300,8 @@
       \strng{authornamehash}{09ca573082ae4f8d66c1ca79d1e68856}
       \strng{authorfullhash}{2f53c5b9431433cece708efae308d962}
       \strng{authorfullhashraw}{2f53c5b9431433cece708efae308d962}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Journal of Medical Internet Research}
@@ -287,8 +333,8 @@
       \strng{authornamehash}{891823ba3dd7506691edf729cb763da0}
       \strng{authorfullhash}{891823ba3dd7506691edf729cb763da0}
       \strng{authorfullhashraw}{891823ba3dd7506691edf729cb763da0}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the 2007 conference on Future Play}
@@ -297,27 +343,365 @@
       \field{pages}{166\bibrangedash 173}
       \range{pages}{8}
     \endentry
-    \entry{USDAFoodDataCentralAPI}{misc}{}{}
+    \entry{currier2023resistance}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
       \name{author}{1}{}{%
-        {{hash=a1e768a0804909b3eddc399581d4a1c6}{%
-           family={{U.S. Department of Agriculture, Agricultural Research Service}},
-           familyi={U\bibinitperiod}}}%
+        {{hash=4517e091fa6417d49f5b48a7e1c0377d}{%
+           family={Currier},
+           familyi={C\bibinitperiod},
+           given={Bradley\bibnamedelima S.},
+           giveni={B\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
       }
-      \strng{namehash}{a1e768a0804909b3eddc399581d4a1c6}
-      \strng{fullhash}{a1e768a0804909b3eddc399581d4a1c6}
-      \strng{fullhashraw}{a1e768a0804909b3eddc399581d4a1c6}
-      \strng{bibnamehash}{a1e768a0804909b3eddc399581d4a1c6}
-      \strng{authorbibnamehash}{a1e768a0804909b3eddc399581d4a1c6}
-      \strng{authornamehash}{a1e768a0804909b3eddc399581d4a1c6}
-      \strng{authorfullhash}{a1e768a0804909b3eddc399581d4a1c6}
-      \strng{authorfullhashraw}{a1e768a0804909b3eddc399581d4a1c6}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \strng{namehash}{87db12ebabcad7b71f299c86133bb368}
+      \strng{fullhash}{87db12ebabcad7b71f299c86133bb368}
+      \strng{fullhashraw}{87db12ebabcad7b71f299c86133bb368}
+      \strng{bibnamehash}{87db12ebabcad7b71f299c86133bb368}
+      \strng{authorbibnamehash}{87db12ebabcad7b71f299c86133bb368}
+      \strng{authornamehash}{87db12ebabcad7b71f299c86133bb368}
+      \strng{authorfullhash}{87db12ebabcad7b71f299c86133bb368}
+      \strng{authorfullhashraw}{87db12ebabcad7b71f299c86133bb368}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{howpublished}{\url{https://fdc.nal.usda.gov/api-guide}}
-      \field{note}{Accessed: 14 October 2026}
-      \field{title}{{FoodData Central API Guide}}
+      \field{journaltitle}{British Journal of Sports Medicine}
+      \field{number}{18}
+      \field{title}{Resistance Training Prescription for Muscle Strength and Hypertrophy in Healthy Adults: A Systematic Review and Bayesian Network Meta-analysis}
+      \field{volume}{57}
+      \field{year}{2023}
+      \field{pages}{1211\bibrangedash 1220}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1136/bjsports-2023-106807
+      \endverb
+    \endentry
+    \entry{ahtiainen2003muscle}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=9a22651a513e09fece8c5432cbb71652}{%
+           family={Ahtiainen},
+           familyi={A\bibinitperiod},
+           given={Juha\bibnamedelima P.},
+           giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=149dfc89b2d42ecbae9f747375d26b4f}{%
+           family={Pakarinen},
+           familyi={P\bibinitperiod},
+           given={Arto},
+           giveni={A\bibinitperiod}}}%
+        {{hash=ef1757448e664bb8a6f7567fa34c1487}{%
+           family={Alen},
+           familyi={A\bibinitperiod},
+           given={Markku},
+           giveni={M\bibinitperiod}}}%
+        {{hash=8488e189b44976754ad8482279efd32e}{%
+           family={Kraemer},
+           familyi={K\bibinitperiod},
+           given={William\bibnamedelima J.},
+           giveni={W\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=fb7fc5d049a2b11b5da36a5bfdc3e60a}{%
+           family={Häkkinen},
+           familyi={H\bibinitperiod},
+           given={Keijo},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{c338d861c53572c06176cb50fc4ca053}
+      \strng{fullhash}{f514bc9f5577e4271ea04142b00d8dd2}
+      \strng{fullhashraw}{f514bc9f5577e4271ea04142b00d8dd2}
+      \strng{bibnamehash}{f514bc9f5577e4271ea04142b00d8dd2}
+      \strng{authorbibnamehash}{f514bc9f5577e4271ea04142b00d8dd2}
+      \strng{authornamehash}{c338d861c53572c06176cb50fc4ca053}
+      \strng{authorfullhash}{f514bc9f5577e4271ea04142b00d8dd2}
+      \strng{authorfullhashraw}{f514bc9f5577e4271ea04142b00d8dd2}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{European Journal of Applied Physiology}
+      \field{number}{6}
+      \field{title}{Muscle Hypertrophy, Hormonal Adaptations and Strength Development During Strength Training in Strength-Trained and Untrained Men}
+      \field{volume}{89}
+      \field{year}{2003}
+      \field{pages}{555\bibrangedash 563}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1007/s00421-003-0833-3
+      \endverb
+    \endentry
+    \entry{giannopoulos2025bulkcut}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=4473ece0c5a08f9e7ccc924b06900956}{%
+           family={Giannopoulos},
+           familyi={G\bibinitperiod},
+           given={V.},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{ddace5b78bed2174246cbe39f2e6ae97}
+      \strng{fullhash}{ddace5b78bed2174246cbe39f2e6ae97}
+      \strng{fullhashraw}{ddace5b78bed2174246cbe39f2e6ae97}
+      \strng{bibnamehash}{ddace5b78bed2174246cbe39f2e6ae97}
+      \strng{authorbibnamehash}{ddace5b78bed2174246cbe39f2e6ae97}
+      \strng{authornamehash}{ddace5b78bed2174246cbe39f2e6ae97}
+      \strng{authorfullhash}{ddace5b78bed2174246cbe39f2e6ae97}
+      \strng{authorfullhashraw}{ddace5b78bed2174246cbe39f2e6ae97}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nutrients}
+      \field{number}{7}
+      \field{title}{A Pilot 24-Week ``Bulk and Cut'' Dietary Protocol Combined with Resistance Training Is Feasible and Improves Body Composition and TNF-$\alpha$ Concentrations in Untrained Adult Males}
+      \field{volume}{17}
+      \field{year}{2025}
+      \field{pages}{1265}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/nu17071265
+      \endverb
+    \endentry
+    \entry{MH2022transformation}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=d2810e9860b92dfbe2b0ea504a2137b7}{%
+           family={Hyson},
+           familyi={H\bibinitperiod},
+           given={Sean},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Men's Health}%
+      }
+      \strng{namehash}{d2810e9860b92dfbe2b0ea504a2137b7}
+      \strng{fullhash}{d2810e9860b92dfbe2b0ea504a2137b7}
+      \strng{fullhashraw}{d2810e9860b92dfbe2b0ea504a2137b7}
+      \strng{bibnamehash}{d2810e9860b92dfbe2b0ea504a2137b7}
+      \strng{authorbibnamehash}{d2810e9860b92dfbe2b0ea504a2137b7}
+      \strng{authornamehash}{d2810e9860b92dfbe2b0ea504a2137b7}
+      \strng{authorfullhash}{d2810e9860b92dfbe2b0ea504a2137b7}
+      \strng{authorfullhashraw}{d2810e9860b92dfbe2b0ea504a2137b7}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{3}
+      \field{month}{2}
+      \field{title}{5 Nutrition Steps You Need to Take to Transform Your Abs in 90 Days}
+      \field{urlday}{23}
+      \field{urlmonth}{11}
+      \field{urlyear}{2026}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.menshealth.com/fitness/a38973840/abs-nutrition-90-day-transformation/
+      \endverb
+      \verb{url}
+      \verb https://www.menshealth.com/fitness/a38973840/abs-nutrition-90-day-transformation/
+      \endverb
+    \endentry
+    \entry{pinther2025fitness}{online}{}{}
+      \name{author}{2}{}{%
+        {{hash=ed4f4b4c5f352fa7adffe3101e81ee59}{%
+           family={Pinther},
+           familyi={P\bibinitperiod},
+           given={Chad},
+           giveni={C\bibinitperiod}}}%
+        {{hash=87200b3609fbcb70acfdf5ad9b291335}{%
+           family={Pinther},
+           familyi={P\bibinitperiod},
+           given={Esther},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Colfax Strong Strength \& Conditioning}%
+      }
+      \strng{namehash}{d85de532912e1cce7029cb76a9f24d3d}
+      \strng{fullhash}{d85de532912e1cce7029cb76a9f24d3d}
+      \strng{fullhashraw}{d85de532912e1cce7029cb76a9f24d3d}
+      \strng{bibnamehash}{d85de532912e1cce7029cb76a9f24d3d}
+      \strng{authorbibnamehash}{d85de532912e1cce7029cb76a9f24d3d}
+      \strng{authornamehash}{d85de532912e1cce7029cb76a9f24d3d}
+      \strng{authorfullhash}{d85de532912e1cce7029cb76a9f24d3d}
+      \strng{authorfullhashraw}{d85de532912e1cce7029cb76a9f24d3d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{28}
+      \field{month}{12}
+      \field{title}{12 Week Fitness Transformation Program: Complete Strength Training Guide from Colfax Strong}
+      \field{urlday}{23}
+      \field{urlmonth}{11}
+      \field{urlyear}{2026}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://colfaxstrong.com/uncategorized/how-to-transform-your-fitness-12-weeks/
+      \endverb
+      \verb{url}
+      \verb https://colfaxstrong.com/uncategorized/how-to-transform-your-fitness-12-weeks/
+      \endverb
+    \endentry
+    \entry{goldsgym2026trial}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=a222acb91718a7e5ce333a856d6bf02b}{%
+           family={{Gold's Gym Japan}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Gold's Gym}%
+      }
+      \strng{namehash}{a222acb91718a7e5ce333a856d6bf02b}
+      \strng{fullhash}{a222acb91718a7e5ce333a856d6bf02b}
+      \strng{fullhashraw}{a222acb91718a7e5ce333a856d6bf02b}
+      \strng{bibnamehash}{a222acb91718a7e5ce333a856d6bf02b}
+      \strng{authorbibnamehash}{a222acb91718a7e5ce333a856d6bf02b}
+      \strng{authornamehash}{a222acb91718a7e5ce333a856d6bf02b}
+      \strng{authorfullhash}{a222acb91718a7e5ce333a856d6bf02b}
+      \strng{authorfullhashraw}{a222acb91718a7e5ce333a856d6bf02b}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Harajuku Tokyo: Membership and Pricing}
+      \field{urlday}{23}
+      \field{urlmonth}{11}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.goldsgym.jp/shop/harajuku-tokyo/membership/
+      \endverb
+      \verb{url}
+      \verb https://www.goldsgym.jp/shop/harajuku-tokyo/membership/
+      \endverb
+    \endentry
+    \entry{blender}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=38b863a4731f9082165e291d08953ee2}{%
+           family={{Blender Foundation}},
+           familyi={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{38b863a4731f9082165e291d08953ee2}
+      \strng{fullhash}{38b863a4731f9082165e291d08953ee2}
+      \strng{fullhashraw}{38b863a4731f9082165e291d08953ee2}
+      \strng{bibnamehash}{38b863a4731f9082165e291d08953ee2}
+      \strng{authorbibnamehash}{38b863a4731f9082165e291d08953ee2}
+      \strng{authornamehash}{38b863a4731f9082165e291d08953ee2}
+      \strng{authorfullhash}{38b863a4731f9082165e291d08953ee2}
+      \strng{authorfullhashraw}{38b863a4731f9082165e291d08953ee2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Version 5.2 LTS}
+      \field{title}{Blender}
+      \field{urlday}{10}
+      \field{urlmonth}{11}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.blender.org
+      \endverb
+      \verb{url}
+      \verb https://www.blender.org
+      \endverb
+    \endentry
+    \entry{mpfb2}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=fb1ed02a440e29c6c011b0c542eb857c}{%
+           family={{MakeHuman Community}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{fullhash}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{fullhashraw}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{bibnamehash}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{authorbibnamehash}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{authornamehash}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{authorfullhash}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{authorfullhashraw}{fb1ed02a440e29c6c011b0c542eb857c}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Software repository}
+      \field{title}{{MPFB}: {MakeHuman} Plugin for {Blender}}
+      \field{urlday}{10}
+      \field{urlmonth}{11}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/makehumancommunity/mpfb2
+      \endverb
+      \verb{url}
+      \verb https://github.com/makehumancommunity/mpfb2
+      \endverb
+    \endentry
+    \entry{flutterassets}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=8b36e9207c24c76e6719268e49201d94}{%
+           family={{Google}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Flutter Documentation}%
+      }
+      \strng{namehash}{8b36e9207c24c76e6719268e49201d94}
+      \strng{fullhash}{8b36e9207c24c76e6719268e49201d94}
+      \strng{fullhashraw}{8b36e9207c24c76e6719268e49201d94}
+      \strng{bibnamehash}{8b36e9207c24c76e6719268e49201d94}
+      \strng{authorbibnamehash}{8b36e9207c24c76e6719268e49201d94}
+      \strng{authornamehash}{8b36e9207c24c76e6719268e49201d94}
+      \strng{authorfullhash}{8b36e9207c24c76e6719268e49201d94}
+      \strng{authorfullhashraw}{8b36e9207c24c76e6719268e49201d94}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Adding Assets and Images}
+      \field{urlday}{10}
+      \field{urlmonth}{11}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.flutter.dev/ui/assets/assets-and-images
+      \endverb
+      \verb{url}
+      \verb https://docs.flutter.dev/ui/assets/assets-and-images
+      \endverb
+    \endentry
+    \entry{makehumanlicense}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=fb1ed02a440e29c6c011b0c542eb857c}{%
+           family={{MakeHuman Community}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{fullhash}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{fullhashraw}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{bibnamehash}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{authorbibnamehash}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{authornamehash}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{authorfullhash}{fb1ed02a440e29c6c011b0c542eb857c}
+      \strng{authorfullhashraw}{fb1ed02a440e29c6c011b0c542eb857c}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{License}
+      \field{urlday}{10}
+      \field{urlmonth}{11}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://static.makehumancommunity.org/about/license.html
+      \endverb
+      \verb{url}
+      \verb https://static.makehumancommunity.org/about/license.html
+      \endverb
     \endentry
   \enddatalist
 \endrefsection
