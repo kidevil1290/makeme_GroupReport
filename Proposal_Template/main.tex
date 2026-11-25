@@ -857,7 +857,6 @@ MakeMe was tested in two ways. The models and services, which contain the rules 
 
 The tests are written with Flutter's \texttt{flutter\_test} package and are in the \texttt{test} folder, in the same structure as the code. They contain 122 test definitions in 10 files. One of them is run for every combination of build, simulated user and weekly goal, so 157 test cases are executed in total. The tests use fixed dates instead of the real clock, so they give the same result on every day. The storage tests use a fake text store and the in-memory version of \texttt{SharedPreferencesAsync}, so they do not touch the real data of a device.
 
-All 157 test cases passed when \texttt{flutter test} was run on November 25, 2026, on commit \texttt{824b5a2} of the main branch. Measured with \texttt{flutter test --coverage}, the tests cover 90.9\% of the lines in the files they load.
 
 \subsubsection*{Automated Tests}
 
