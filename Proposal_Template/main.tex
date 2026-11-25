@@ -425,40 +425,27 @@ When a user presses a navigation button, the setScreen() method updates the curr
 
 My primary responsibility was developing the front-end screens and implementing navigation between them.
 
-\textbf{Login Screen}
-
-The Login Screen serves as the initial entry point of the application. It includes a Start button near the bottom of the screen and a Sign Up button near the top.
-Pressing the Start button navigates the user to the Home Screen. The Sign Up button currently leads to a placeholder screen.
-
-\textbf{Home Screen}
-
-The Home Screen provides the main navigation interface. It contains three navigation options: Home, Loggers, and Stats.
-A Start Workout button is positioned near the bottom of the screen, allowing users to access the Habit Logger.
-The interface uses a dark blue header, a light blue background, and rounded buttons to maintain a consistent design.
-
-\textbf{Habit Logger}
-
-The Habit Logger provides four categories: Workout Log, Meal Log, Hydration Log, and Sleep Log.
-These options are displayed as vertically arranged buttons to make navigation simple and accessible.The Workout Log button navigates to the Workout Log Screen. The remaining logging options currently lead to placeholder screens.
-
-\textbf{Workout Log Screen and Template}
-
-The Workout Log Screen provides an interface for accessing workout-related functionality. The current screen contains a Workout Template button that navigates to a separate Workout Template screen.
-A back button allows users to return to the Home screen. The template screen allows user to save and load workout template, so not to make the same workoutlog everytime.
-At this stage, the Workout Log Screen primarily provides the navigation structure. Workout data entry and storage are not yet implemented in this screen.
-
-\textbf{Avatar Simulation Screen}
-The avatar can be shown the avatar growth for each criteria. For example, depends on the goal the user chase on, it shows 4 types of body types.
-Also, depending on the days the user expect to do workout.
-
-\textbf{Avatar Selection screen}
-The avatar selection screen allows user to change the avatar also can create new avatar.
-
 \textbf{Navigation Implementation}
 
 Screen navigation is managed through the ScreenManager class and the Screens enumeration. Each screen accesses the ScreenManager through Provider and calls setScreen() when a navigation button is pressed.
 This approach separates navigation state from individual screen layouts and allows the application to switch between screens without duplicating navigation logic.
 
+\subsubsection*{Workout Log}
+The workout log screen implements requirement R2. It lets the user enter the three inputs the avatar growth calculation depends on:
+\begin{itemize}
+  \item \textbf{Duration:} the length of the workout.
+  \item \textbf{Muscle group:} the muscle group trained, selected from a fixed list.
+  \item \textbf{Intensity level:} how demanding the workout was.
+\end{itemize}
+Using selection controls for the muscle group and intensity keeps the input consistent and avoids invalid values.
+When the user confirms an entry, the screen passes the logged data to the growth logic (R3), 
+which applies growth to the corresponding muscles, and the user returns to the avatar screen, where the updated appearance is displayed (R4).
+
+\subsubsection*{Workout Log Template}
+Entering the same workout repeatedly is tedious, which works against the goal of building a consistent habit, a need shared by all three personas. 
+To reduce this effort, I implemented workout log templates. A template stores a combination of muscle group, duration, and intensity that the user performs regularly. 
+Selecting a template fills in the workout log form, so a routine workout can be logged in a few taps. 
+The user can still adjust any value before confirming, so a template acts as a starting point rather than a fixed entry.
 % ============================================================
 % 7. Rewuired Resources and Feasibility
 % ============================================================
