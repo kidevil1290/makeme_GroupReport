@@ -223,7 +223,7 @@ MakeMe primarily targets individuals who want to develop healthier habits throug
     Interested in using avatar progression and visual rewards to make fitness tracking more engaging and enjoyable.
 \end{itemize}
 
-\subsubsection*{Persona 2: Sarah, 29 --- Office Worker}
+\subsubsection*{Persona 2: Jakson, 29 --- Office Worker}
 
 \begin{itemize}
     \item \textbf{Background:}
@@ -231,9 +231,20 @@ MakeMe primarily targets individuals who want to develop healthier habits throug
     \item \textbf{Technical Experience:}
     Comfortable using smartphones and fitness applications to track workouts and daily activities.
     \item \textbf{Goal:}
-    Manage workout routines, nutrition, hydration, and sleep habits in one application.
+    Log workouts and daily activity consistently in one application, and see her long-term progress at a glance.
     \item \textbf{Relevance to MakeMe:}
-    Interested in combining multiple health tracking features with a visual avatar that reflects daily habits and long-term consistency.
+    Interested in a visual avatar that reflects her workout habits and long-term consistency.
+\subsubsection*{Persona 3: Sarah, 35 --- Office Worker}
+
+\begin{itemize}
+    \item \textbf{Background:}
+    An office worker who does not have an established habit of physical activity or workouts.
+    \item \textbf{Technical Experience:}
+    Comfortable using smartphones but has never used a fitness application.
+    \item \textbf{Goal:}
+    Build and keep the motivation to work out, and develop a habit of moving her body in a joyful way.
+    \item \textbf{Relevance to MakeMe:}
+      Interested in avatar growth as a more engaging alternative to numbers and charts, so that even small, early steps feel rewarding and help her stay motivated.
 \end{itemize}
 
 
@@ -282,11 +293,18 @@ The interface uses a dark blue header, a light blue background, and rounded butt
 The Habit Logger provides four categories: Workout Log, Meal Log, Hydration Log, and Sleep Log.
 These options are displayed as vertically arranged buttons to make navigation simple and accessible.The Workout Log button navigates to the Workout Log Screen. The remaining logging options currently lead to placeholder screens.
 
-\textbf{Workout Log Screen}
+\textbf{Workout Log Screen and Template}
 
 The Workout Log Screen provides an interface for accessing workout-related functionality. The current screen contains a Workout Template button that navigates to a separate Workout Template screen.
-A back button allows users to return to the Habit Logger.
+A back button allows users to return to the Home screen. The template screen allows user to save and load workout template, so not to make the same workoutlog everytime.
 At this stage, the Workout Log Screen primarily provides the navigation structure. Workout data entry and storage are not yet implemented in this screen.
+
+\textbf{Avatar Simulation Screen}
+The avatar can be shown the avatar growth for each criteria. For example, depends on the goal the user chase on, it shows 4 types of body types.
+Also, depending on the days the user expect to do workout.
+
+\textbf{Avatar Selection screen}
+The avatar selection screen allows user to change the avatar also can create new avatar.
 
 \textbf{Navigation Implementation}
 
@@ -493,10 +511,16 @@ an additional source of motivation for users to maintain their health routines o
 \subsection{Initial Scope}
 
 \textbf{In scope.}
-The initial version of MakeMe will focus on implementing the avatar’s initial configuration, muscle-specific growth, workout logging,
-     streak system, and time-based decay. It will also include habit logging, supporting avatars conditional states and bulk progression.
+The initial version of MakeMe will focus on implementing the avatar’s initial configuration, muscle growth, workout logging,
+     streak system, and time-based decay. It will also include habit logging with template, supporting avatars conditional states and bulk progression.
         A 90-day progression cycle, cycle-completion and summary that provides the user a long term objective.
 
+        
+    one challenhge that i faced is the workout log funtion. it shold be saved workouut log, but chould not combine the logic with appearance.
+    The same problem for the template implementation. the 
+    One point that i have leaned is how to use Github also for commands.
+    i didn't know that i coulf change the committed files add or remove them during PR is progress.
+    
 \medskip
 
 \textbf{Out of scope.}
