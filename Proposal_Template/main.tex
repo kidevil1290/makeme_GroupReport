@@ -665,29 +665,58 @@ The avatar's visual assets were created in Blender \cite{blender} with MPFB2 \ci
 
 \subsection{Implementation of the Main Features}
 
+
 \subsubsection{Front-End Screens and Navigation}
 
-\textbf{Navigation Implementation}
+The front-end of MakeMe consists of the application's screens and the navigation between them. The following screens have been implemented. Their connections are managed by the \texttt{ScreenManager} (see Navigation Implementation below).
 
-Screen navigation is managed through the ScreenManager class and the Screens enumeration. Each screen accesses the ScreenManager through Provider and calls setScreen() when a navigation button is pressed.
-This approach separates navigation state from individual screen layouts and allows the application to switch between screens without duplicating navigation logic.
+\paragraph{Login Screen.}
+The Login Screen serves as the initial entry point of the application. It includes a Start button near the bottom of the screen and a Sign Up button near the top. Pressing the Start button navigates the user to the Avatar Selection Screen. The Sign Up button currently leads to a placeholder screen.
+
+\paragraph{Avatar Selection Screen.}
+The Avatar Selection Screen decides how the user continues. If there is no current avatar, its main button leads to the Avatar Creation Screen. If there is one, the button leads to the Home Screen. The ascension badge of the user is shown here as well. Below the button, the avatars from earlier cycles are listed as cards, each drawn from its saved appearance. A card can be opened to see the avatar larger, together with the number of weeks in which the weekly goal was met and the dates of the cycle (R6, R7). Empty slots show that more avatars can be earned.
+
+\paragraph{Avatar Creation Screen.}
+The Avatar Creation Screen implements requirement R1. The user enters a name, sets a weekly workout goal, and chooses the gender, the starting build, the head options (hair, eyes, nose and mouth), and the skin and hair colour. A live preview of the avatar is shown while the user chooses. When the user confirms, the avatar is created, the 91-day cycle starts, and the user is taken to the Home Screen.
+
+\paragraph{Home Screen.}
+The Home Screen provides the main navigation interface and shows the current avatar and its badge (R4, R7). It contains three navigation options at the bottom: Home, Loggers, and Stats. The Loggers option opens the Habit Logger, and the Stats option opens the Status Screen. A Start Workout button is positioned near the bottom of the screen and opens the Workout Log directly. A menu in the header gives access to the Avatar Selection Screen, Log Out, and the debug tools (see below). When the avatar can ascend, either because all muscles are maxed or because the 91 days have passed, a dialog asks the user to press Ascend before anything else can be done (R6). The interface uses a dark blue header, a light blue background, and rounded buttons to maintain a consistent design.
+
+\paragraph{Habit Logger.}
+The Habit Logger provides four categories: Workout Log, Meal Log, Hydration Log, and Sleep Log. These options are displayed as vertically arranged buttons to make navigation simple and accessible. The Workout Log button navigates to the Workout Log Screen. The remaining logging options currently lead to placeholder screens, because these features are outside the scope of the MVP (Section~8.3).
+
+\paragraph{Status Screen.}
+The Status Screen is opened from the Stats option of the Home Screen. It shows the workout history of the user as a monthly calendar, where days with logged workouts are marked and the visible month can be changed. When the user selects a day, the screen lists the workouts of that day. Each workout is shown as a card with its duration, intensity, trained muscle groups, and the name of the template that was used, if any. A day without workouts shows an empty message. The screen only reads the saved workout history, so every workout saved in the Workout Log appears here automatically, and the history is still there after the application restarts. A back button returns to the Home Screen.
+
+\paragraph{Growth Simulation Screen.}
+The Growth Simulation Screen is a developer tool in the header menu of the Home Screen. It replays the 91-day cycle for the four builds with a simulated user (under, on or over the goal) and shows the avatars and whether they can ascend on each day. The same menu has two buttons, Force End Cycle and Force Maxed Avatar, which allow us to check the two conditions of the ascension without waiting 91 days.
+
+\paragraph{Navigation Implementation.}
+Screen navigation is managed through the \texttt{ScreenManager} class and the \texttt{Screens} enumeration. Each screen accesses the \texttt{ScreenManager} through \texttt{Provider} and calls \texttt{setScreen()} when a navigation button is pressed. The class \texttt{app.dart} watches the manager and shows the matching screen with a short fade. The system back gesture is passed to \texttt{goBack()}, which returns to the previous screen and does nothing on the Home and Login screens, so a stray swipe does not close the application. This approach separates navigation state from individual screen layouts and allows the application to switch between screens without duplicating navigation logic. A new screen only needs a new value in the \texttt{Screens} enumeration.
 
 \subsubsection*{Workout Log}
-The workout log screen implements requirement R2. It lets the user enter the three inputs the avatar growth calculation depends on:
+The Workout Log screen implements requirement R2. It lets the user enter the three inputs the avatar growth calculation depends on:
 \begin{itemize}
-  \item \textbf{Duration:} the length of the workout.
-  \item \textbf{Muscle group:} the muscle group trained, selected from a fixed list.
-  \item \textbf{Intensity level:} how demanding the workout was.
+  \item \textbf{Duration:} the length of the workout, from 5 minutes to 2 hours.
+  \item \textbf{Muscle group:} one or more muscle groups trained, selected from a fixed list.
+  \item \textbf{Intensity level:} how demanding the workout was (light, moderate or heavy).
 \end{itemize}
-Using selection controls for the muscle group and intensity keeps the input consistent and avoids invalid values.
-When the user confirms an entry, the screen passes the logged data to the growth logic (R3), 
-which applies growth to the corresponding muscles, and the user returns to the avatar screen, where the updated appearance is displayed (R4).
+Using selection controls for the duration, the muscle groups and the intensity keeps the input consistent and avoids invalid values, and the Save button is only enabled when the input is complete. When the user confirms an entry, the screen passes the logged data to the growth logic (R3), which applies growth to the corresponding muscles. The workout and the new growth are saved together, and the user returns to the Home Screen with a confirmation, where the updated avatar is displayed (R4).
 
 \subsubsection*{Workout Log Template}
-Entering the same workout repeatedly is tedious, which works against the goal of building a consistent habit, a need shared by all three personas. 
-To reduce this effort, I implemented workout log templates. A template stores a combination of muscle group, duration, and intensity that the user performs regularly. 
-Selecting a template fills in the workout log form, so a routine workout can be logged in a few taps. 
-The user can still adjust any value before confirming, so a template acts as a starting point rather than a fixed entry.
+Entering the same workout repeatedly is tedious, which works against the goal of building a consistent habit, a need shared by all three personas. To reduce this effort, I implemented workout log templates. On the Template Screen, the user can save a combination of muscle groups and intensity under a name, choose a saved template from a list, or delete it. A template does not store the duration, which the user still chooses for each workout. Selecting a template opens the Workout Log with the muscle groups and the intensity already filled in, so a routine workout can be logged in a few taps. The user can still adjust any value before confirming, so a template acts as a starting point rather than a fixed entry. The name of the template is stored with the workout and is shown on the Status Screen.
+
+\subsubsection*{Growth, Cycle, Ascension and Persistence}
+The screens above are connected to the rest of the main features as follows. Section~7.2 describes the details.
+\begin{itemize}
+  \item \textbf{Muscle-specific growth (R3).} \texttt{GrowthCalculator} converts a saved workout into growth points, divides them between the trained muscles, and \texttt{UserProfile} adds them to the avatar. The growth needed to max a muscle depends on the weekly goal chosen at avatar creation.
+  \item \textbf{Avatar display (R4).} \texttt{AvatarDisplay} draws the avatar from sprite layers. It is used on the Home, Avatar Creation, Avatar Selection and Growth Simulation Screens, so the avatar looks the same everywhere.
+  \item \textbf{91-day cycle (R5).} \texttt{CycleManager} stores the start date and is updated after every workout. The Home Screen checks it to know when the user can ascend.
+  \item \textbf{Ascension and rewards (R6, R7).} Pressing Ascend saves the finished avatar as an \texttt{AvatarRecord}, raises the ascension level, and sends the user to the Avatar Creation Screen for a new cycle. The badge of the new level is shown on the Home and Avatar Selection Screens.
+  \item \textbf{Persistence (R8).} \texttt{StorageService} saves all user data after every change and loads it when the application starts, so the avatar, the workout history, the templates, the cycle and the badge are still there after a restart.
+\end{itemize}
+
+
 % ============================================================
 % 7. Rewuired Resources and Feasibility
 % ============================================================
