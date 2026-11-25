@@ -500,7 +500,7 @@ MakeMe primarily targets individuals who want to develop healthier habits throug
     Interested in using avatar progression and visual rewards to make fitness tracking more engaging and enjoyable.
 \end{itemize}
 
-\subsubsection*{Persona 2: Sarah, 29 --- Office Worker}
+\subsubsection*{Persona 2: Jakson, 29 --- Office Worker}
 
 \begin{itemize}
     \item \textbf{Background:}
@@ -508,9 +508,20 @@ MakeMe primarily targets individuals who want to develop healthier habits throug
     \item \textbf{Technical Experience:}
     Comfortable using smartphones and fitness applications to track workouts and daily activities.
     \item \textbf{Goal:}
-    Manage workout routines, nutrition, hydration, and sleep habits in one application.
+    Log workouts and daily activity consistently in one application, and see her long-term progress at a glance.
     \item \textbf{Relevance to MakeMe:}
-    Interested in combining multiple health tracking features with a visual avatar that reflects daily habits and long-term consistency.
+    Interested in a visual avatar that reflects her workout habits and long-term consistency.
+\subsubsection*{Persona 3: Sarah, 35 --- Office Worker}
+
+\begin{itemize}
+    \item \textbf{Background:}
+    An office worker who does not have an established habit of physical activity or workouts.
+    \item \textbf{Technical Experience:}
+    Comfortable using smartphones but has never used a fitness application.
+    \item \textbf{Goal:}
+    Build and keep the motivation to work out, and develop a habit of moving her body in a joyful way.
+    \item \textbf{Relevance to MakeMe:}
+      Interested in avatar growth as a more engaging alternative to numbers and charts, so that even small, early steps feel rewarding and help her stay motivated.
 \end{itemize}
 
 
@@ -633,30 +644,38 @@ The avatar's visual assets were created in Blender \cite{blender} with MPFB2 \ci
 
 \subsubsection{Front-End Screens and Navigation}
 
-The front-end of MakeMe consists of the application's screens and the navigation between them. The following screens have been implemented.
-
-\paragraph{Login Screen.}
-
-The Login Screen serves as the initial entry point of the application. It includes a Start button near the bottom of the screen and a Sign Up button near the top.
-Pressing the Start button navigates the user to the Home Screen. The Sign Up button currently leads to a placeholder screen.
-
-\paragraph{Home Screen.}
-
-The Home Screen provides the main navigation interface. It contains three navigation options: Home, Loggers, and Stats.
-A Start Workout button is positioned near the bottom of the screen, allowing users to access the Habit Logger.
-The interface uses a dark blue header, a light blue background, and rounded buttons to maintain a consistent design.
-
-\paragraph{Habit Logger.}
-
-The Habit Logger provides four categories: Workout Log, Meal Log, Hydration Log, and Sleep Log.
-These options are displayed as vertically arranged buttons to make navigation simple and accessible. The Workout Log button navigates to the Workout Log Screen. The remaining logging options currently lead to placeholder screens.
-
-\paragraph{Navigation}
+\textbf{Navigation Implementation}
 
 Screen navigation is managed through the ScreenManager class and the Screens enumeration. Each screen accesses the ScreenManager through Provider and calls setScreen() when a navigation button is pressed.
 This approach separates navigation state from individual screen layouts and allows the application to switch between screens without duplicating navigation logic.
 
-\subsubsection{Core Application Logic}
+\subsubsection*{Workout Log}
+The workout log screen implements requirement R2. It lets the user enter the three inputs the avatar growth calculation depends on:
+\begin{itemize}
+  \item \textbf{Duration:} the length of the workout.
+  \item \textbf{Muscle group:} the muscle group trained, selected from a fixed list.
+  \item \textbf{Intensity level:} how demanding the workout was.
+\end{itemize}
+Using selection controls for the muscle group and intensity keeps the input consistent and avoids invalid values.
+When the user confirms an entry, the screen passes the logged data to the growth logic (R3), 
+which applies growth to the corresponding muscles, and the user returns to the avatar screen, where the updated appearance is displayed (R4).
+
+\subsubsection*{Workout Log Template}
+Entering the same workout repeatedly is tedious, which works against the goal of building a consistent habit, a need shared by all three personas. 
+To reduce this effort, I implemented workout log templates. A template stores a combination of muscle group, duration, and intensity that the user performs regularly. 
+Selecting a template fills in the workout log form, so a routine workout can be logged in a few taps. 
+The user can still adjust any value before confirming, so a template acts as a starting point rather than a fixed entry.
+% ============================================================
+% 7. Rewuired Resources and Feasibility
+% ============================================================
+\section{Required Resources and Feasibility}
+
+\subsection{Hardware, Software, and Other Resources}
+The front-end development requires a computer capable of running Flutter development tools and an Android emulator. The main software resources include Flutter, Dart, Android Studio, Git, and GitHub.
+Flutter and Dart are used to develop the application interface, while Android Studio provides an environment for running and inspecting the application. Git and GitHub support collaborative development by allowing team members to maintain separate branches, track code changes, and integrate their contributions. The Provider package is used to manage application navigation state.
+
+\subsection{Feasibility Within the Available
+Time and Resources}
 
 \paragraph{Workout Logging and Growth}
 A WorkoutLogEntry requires the fields: duration, intensity and a list of BodyPartName provided by user input in the Workout
@@ -747,7 +766,61 @@ The main risk is the number of sprites the system requires, which increases both
 % ============================================================
 % 8. Results and DIscussion
 % ============================================================
-\section{Results and Discussion}
+\section{Implementation Goals and Scope}
+
+\subsection{Implementation Goals}
+
+% State 3–5 concrete goals.
+% Goals should describe observable capabilities rather than vague intentions.
+
+
+\subsection{Core Functional Requirements}
+
+% List 4–6 core functional requirements.
+% Focus on externally visible behavior rather than implementation details.
+
+\begin{itemize}
+    \item \textbf{R1.} Initial Avatar Set Up. The system will collect initial user data through a survey and use the response as the avatars baseline.
+    \item \textbf{R2.} Workout Logging and Muscle-Specific Growth. A dedicated workout logger that collects duration, selected exercised
+         body parts, and intensity level from user input. The system uses this input to calculate growth for selected body parts.
+    \item \textbf{R3.} Workout Streak Tracking: The system maintains a workout streak using a 48-interval after a workout log,
+         allowing users to include rest days without automatically breaking their streaks.
+    \item \textbf{R4.} Avatar Decay. The avatar decays continuously and can be accelerated through poor meal logging habits.
+         This system balances growth from workout logging to simulate a semi-realistic growth rate. 
+    \item \textbf{R5.} Avatar State System: The system updates the avatars’ appearance and state based on the user’s logged habits.
+    \item \textbf{R6.} Habit Logging. Allows users to record meals, hydration and sleep that contributes to avatars state system and progression.
+    \item \textbf{R7.} Bulk Progression. Accumulated throughout the cycle and reads through macro report from macro tracker and calculates
+         progression in clean bulk and dirty bulk that influence the avatars overall appearance.
+    \item \textbf{R8.} Recovery and Revival. Prolonged period of inactivity can result to the avatars death. A recovery system
+         detects the users return within three stages that determines recovery state from initial return work out logging to a three-day
+          workout streak. The avatar loses all its progress and will return to its initial state.
+    \item \textbf{R9.} Cycle Completion and Summary. The system tracks a 90-day cycle to simulate a three-month transformation and presents
+         a summary of the user’s activity, avatar development, and achievements.
+    \item \textbf{R10.} Ascension System. Determines if the user has completed their long-term goals and allows the user to begin a new cycle,
+        including a new initial survey and avatar baseline. A badge or title will be rewarded with each ascension.
+    \item \textbf{R11.} Limited rewards such as badges or cosmetic items for completing certain milestones.
+\end{itemize}
+
+\subsection{Initial Scope}
+
+\textbf{In scope.}
+The initial version of MakeMe will focus on implementing the avatar’s initial configuration, muscle growth, workout logging,
+     streak system, and time-based decay. It will also include habit logging with template, supporting avatars conditional states and bulk progression.
+        A 90-day progression cycle, cycle-completion and summary that provides the user a long term objective.
+
+        
+    one challenhge that i faced is the workout log funtion. it shold be saved workouut log, but chould not combine the logic with appearance.
+    The same problem for the template implementation. the 
+    One point that i have leaned is how to use Github also for commands.
+    i didn't know that i coulf change the committed files add or remove them during PR is progress.
+    
+\medskip
+
+\textbf{Out of scope.}
+The initial implementation will exclude extensive equipment collections, multiplayer features, competitive leaderboards,
+     and advanced social systems. Character customization, avatar appearance states, and visual progression will also be
+        limited to a predefined set of options. Additionally, the application will not provide medical diagnoses or claim
+     that avatar development accurately represents a user's real body composition or physical health.
 
 \subsection{Proposed Features and Their Completion Status}
 TBD
